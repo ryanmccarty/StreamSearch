@@ -1,0 +1,30 @@
+{
+  "name": "streamsearch",
+  "version": "1.0.0",
+  "description": "Our greenfield",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cain-sugar/StreamSearch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cain-sugar/StreamSearch/issues"
+  },
+  "homepage": "https://github.com/cain-sugar/StreamSearch#readme",
+  "dependencies": {
+    "angular": "^1.7.7",
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "mysql": "^2.16.0",
+    "sequelize": "^4.42.0",
+    "underscore": "^1.9.1"
+  }
+}
