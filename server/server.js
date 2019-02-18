@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.static('client'));
-
+app.use(express.static('node_modules'));
 
 
 
