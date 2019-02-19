@@ -1,3 +1,3 @@
-angular.module('StreamingServiceApp', []);
+angular.module('app', []);
 
 //'itemsService'
