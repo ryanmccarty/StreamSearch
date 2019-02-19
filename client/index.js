@@ -1,1 +1,3 @@
-angular.module('stream-search', []);
+angular.module('StreamingServiceApp', []);
+
+//'itemsService'
