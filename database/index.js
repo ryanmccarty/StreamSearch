@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('streamsearch', 'root', null, {
+const db = new Sequelize('streamsearch', 'root', null, {
   host: 'localhost',
   dialect: 'mysql',
 });
 
-const Users = sequelize.define('Users', {
-  user_id: {
+const User = db.define('User', {
+  id_user: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -15,8 +15,8 @@ const Users = sequelize.define('Users', {
   hashed_password: Sequelize.STRING.BINARY,
 }) 
 
-const Services = sequelize.define('Services', {
-  service_id: {
+const Service = db.define('Service', {
+  id_service: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -25,8 +25,8 @@ const Services = sequelize.define('Services', {
   service_logo: Sequelize.STRING,
 })
 
-const Movies = sequelize.define('Movies', {
-  movie_id: {
+const Movie = db.define('Movie', {
+  id_movie: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -34,38 +34,82 @@ const Movies = sequelize.define('Movies', {
   movie_title: Sequelize.STRING,
   box_art: Sequelize.STRING,
   release_year: Sequelize.INTEGER,
+  favorite: Sequelize.BOOLEAN,
+  watch_later: Sequelize.BOOLEAN,
+  recently_searched: Sequelize.BOOLEAN,
+
 })
 
-// join table between movies and services
-Movies.belongsToMany(Services, {through: 'MovieService'});
-Services.belongsToMany(Movies, {through: 'MovieService'});
+const Movie_Service = db.define('Movie_Service', {
+  id_service_movie: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  id_service: {
+  type: Sequelize.INTEGER,
+    references: {
+      model: 'Services',
+      key: 'id_service',
+    }
+  },
+  id_movie: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'Movies',
+      key: 'id_movie',
+    }
+  }
+})
 
-// join table between users and services
-Users.belongsToMany(Services, {through: 'UserServices'});
-Services.belongsToMany(Users, {through: 'UserServices'});
+const User_Movie = db.define('User_Movie', {
+  id_user_movie: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  id_user: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'Users',
+      key: 'id_user',
+    }
+  },
+  id_movie: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'Movies',
+      key: 'id_movie',
+    }
+  }
+})
 
-// join table between users and movies for recentlySearched 
-Movies.belongsToMany(Users, {through: 'RecentlySearched'});
-Users.belongsToMany(Movies, {through: 'RecentlySearched'});
+const User_Service = db.define('User_Service', {
+  id_user_service: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  id_user: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'Users',
+      key: 'id_user',
+    }
+  },
+  id_service: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'Services',
+      key: 'id_service',
+    }
+  }
+})
 
-// join table between users and movies for favorites list
-Movies.belongsToMany(Users, {through: 'Favorites'});
-Users.belongsToMany(Movies, {through: 'Favorites'});
 
-// join table for users and movies for watchLater
-Movies.belongsToMany(Users, {through: 'WatchLater'});
-Users.belongsToMany(Movies, {through: 'WatchLater'});
+db.sync({force: true});
 
-Users.sync();
-Movies.sync();
-Services.sync();
-// MovieService.sync();
-// UserServices.sync();
-// RecentlySearched.sync();
-// Favorites.sync();
-// WatchLater.sync();
-
-sequelize
+db
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
@@ -76,4 +120,4 @@ sequelize
   .done();
 
 
-module.exports.sequelize = sequelize;
+module.exports.db = db;
