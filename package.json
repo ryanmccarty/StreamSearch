@@ -4,7 +4,7 @@
   "description": "Our greenfield",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodemon server/server.js"
   },
   "repository": {
@@ -24,9 +24,13 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "http": "0.0.0",
+    "mocha-suite": "^1.0.11",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.5",
     "sequelize": "^4.42.0",
     "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "mocha": "^6.0.0"
   }
 }
