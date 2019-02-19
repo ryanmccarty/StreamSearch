@@ -2,9 +2,9 @@
 // const axios = require('axios');
 
 angular.module('app')
-  .service('itemsService', function itemsService($http) {
+  .service('items', function serve($http) {
     this.login = (username, password) => {
-      $http.post('/login', {
+      $http.get('/login', {
         username, password
       })
         .then(() => {
