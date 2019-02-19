@@ -1,4 +1,4 @@
-angular.module('StreamingServiceApp')
+angular.module('app')
   .component('main', {
     bindings: {},
     controller() {
@@ -8,7 +8,7 @@ angular.module('StreamingServiceApp')
       //})
       }
     },
-    templateUrl: './Templates/main.html',
+    templateUrl: './templates/app.html',
 })
 
 // Add a create session function and send down information to log in and signup

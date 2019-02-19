@@ -1,14 +1,4 @@
-function Login($scope, $element, $attr){
-
-  
-
-
-  ctrl.userInputLogin= function(user, prop, info){
-    user[prop] = info;
-  };
-}
-
-  angular.module('StreamingServiceApp')
+angular.module('app')
     .component('logIn', {
     bindings: {
       
@@ -16,9 +6,9 @@ function Login($scope, $element, $attr){
     controller(){
     
       this.login = (username, password) => {
-        console.log(`${username} is now logged in`);
+        console.log(`${username} is now logged in their password is ${password}`);
         //itemsService.sendText(username, password);
       };
     },
-    templateUrl: '/Templates/login.html', 
+    templateUrl: '/templates/login.html', 
   });

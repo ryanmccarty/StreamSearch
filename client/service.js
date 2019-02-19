@@ -1,7 +1,7 @@
 // Look up requiring axios
 // const axios = require('axios');
 
-angular.module('StreamingServiceApp')
+angular.module('app')
   .service('itemsService', function itemsService($http) {
     this.login = (username, password) => {
       $http.post('/login', {

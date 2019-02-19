@@ -1,4 +1,4 @@
-angular.module('StreamingServiceApp')
+angular.module('app')
   .component('signUp', {
   controller(){
     this.username = null;
@@ -11,5 +11,5 @@ angular.module('StreamingServiceApp')
       // itemsService.sendText(ctrl.username, ctrl.fullname, ctrl.password, ctrl.services, ctrl.country)
     };
   },
-    templateUrl: '/Templates/signup.html',
+    templateUrl: '/templates/signup.html',
 })
