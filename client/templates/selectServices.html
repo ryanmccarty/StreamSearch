@@ -6,8 +6,8 @@
   <form ng-repeat-end>
     <input type="checkbox"
     ng-model="$ctrl.serviceList[service]" 
-    ng-change="$ctrl.hasService()"
     >
     </input>
   </form>
+  <button ng-click="$ctrl.submitList()">Select these services!</button>
 </div>

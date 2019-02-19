@@ -13,8 +13,8 @@ angular.module('app')
         primevideo: false
       };
 
-      selectServices.hasService = function(service) {
-        console.log(this.serviceList);
+      selectServices.submitList = function() {
+        console.log(selectServices.serviceList);
       }
     }
   });
