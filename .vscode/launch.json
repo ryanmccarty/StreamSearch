@@ -8,7 +8,11 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
+<<<<<<< HEAD
       "program": "${workspaceFolder}/server/server.js"
+=======
+      "program": "${workspaceFolder}/database/index.js"
+>>>>>>> 495599f89e1bc2871e4ef57bc49c986052d8c01b
     }
   ]
 }
