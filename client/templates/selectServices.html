@@ -1,10 +1,12 @@
 <div class="service-checkbox">
-  <img ng-repeat-start="service in $ctrl.serviceList" height=100 width=100 src="assets/serviceLogos/{{service}}.png" />
+  <img ng-repeat-start="(service, hasService) in $ctrl.serviceList" 
+  service="service"
+  height=100 width=100 
+  src="assets/serviceLogos/{{service}}.png" />
   <form ng-repeat-end>
     <input type="checkbox"
-    service="service"
-    ng-model="$ctrl.serviceStatus1" 
-    ng-change="$ctrl.hasService($ctrl.serviceStatus1)"
+    ng-model="$ctrl.serviceList[service]" 
+    ng-change="$ctrl.hasService()"
     >
     </input>
   </form>

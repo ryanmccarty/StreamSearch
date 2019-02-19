@@ -4,24 +4,17 @@ angular.module('app')
     controller: function() {
       const selectServices = this;
 
-      selectServices.serviceList = [
-        'crunchyroll', 
-        'googleplay',
-        'hulu',
-        'iTunes',
-        'netflix',
-        'primevideo' 
-      ];
+      selectServices.serviceList = {
+        crunchyroll: false,
+        googleplay: false,
+        hulu: false,
+        iTunes: false,
+        netflix: false,
+        primevideo: false
+      };
 
-      selectServices.serviceStatus1 = null;
-      selectServices.serviceStatus2 = null;
-      selectServices.serviceStatus3 = null;
-
-      selectServices.hasService = function(val) {
-        console.log(selectServices.serviceStatus1)
-        console.log(selectServices.serviceStatus2)
-        console.log(selectServices.serviceStatus3)
-        // console.log(val);
+      selectServices.hasService = function(service) {
+        console.log(this.serviceList);
       }
     }
   });
