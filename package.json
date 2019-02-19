@@ -4,7 +4,8 @@
   "description": "Our greenfield",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "http": "0.0.0",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.10",
+    "mysql2": "^1.6.5",
     "sequelize": "^4.42.0",
     "underscore": "^1.9.1"
   }
