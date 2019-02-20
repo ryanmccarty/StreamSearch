@@ -28,10 +28,8 @@ angular.module('app')
         });
     };
 
-    this.search = (term) => {
-      $http.post('/search', {
-        term
-      })
+    this.search = (query) => {
+      $http.post('/search', query)
       .then((response) => {
         console.log(response.data);
       })
