@@ -1,18 +1,21 @@
-CREATE DATABASE streamsearch
+CREATE DATABASE streamsearch;
 
-USE streamsearch
+USE streamsearch;
 
-CREATE TABLE users(
-  user_id INT AUTO_INCREMENT not null PRIMARY KEY
-  user_name VARCHAR(40) not null
-  full_name VARCHAR(40) not null
-  hashed_password BINARY(60) not null
-)
+CREATE TABLE users
+(
+  user_id INT AUTO_INCREMENT, 
+  user_name VARCHAR(40), 
+  full_name VARCHAR(40), 
+  hashed_password BINARY(60), 
+  PRIMARY KEY (user_id)
+);
 
 CREATE TABLE services(
   service_id INT AUTO_INCREMENT not null PRIMARY KEY
   service_name VARCHAR(40)
   service_logo VARCHAR(150)
+  
 )
 
 CREATE TABLE movies(
