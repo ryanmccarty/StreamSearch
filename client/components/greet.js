@@ -5,6 +5,8 @@ angular.module('app')
       path: '<',
     },
     controller() {
+      M.AutoInit();
     },
     templateUrl: '../templates/greet.html',
   });
+  

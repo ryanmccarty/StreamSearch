@@ -1,10 +1,16 @@
 angular.module('app', ['ui.router']).config(function($stateProvider, $locationProvider) {
-  $locationProvider.html5Mode(true);
-$locationProvider.hashPrefix('');
+  // $locationProvider.html5Mode(true);
+$locationProvider.hashPrefix('StreamSearch');
   const appState = {
     name: 'app',
     url: '/',
     component: 'app'
+  }
+
+  blankState = {
+    name: 'blank',
+    url: '',
+    redirectTo: 'app'
   }
   
   const signupState = {
@@ -29,6 +35,7 @@ $locationProvider.hashPrefix('');
   $stateProvider.state(loginState);
   $stateProvider.state(logoutState);
   $stateProvider.state(appState);
+  $stateProvider.state(blankState);
 });
 
 //'itemsService'

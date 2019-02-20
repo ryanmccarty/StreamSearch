@@ -6,7 +6,7 @@ angular.module('app')
     controller(Serve){
       this.username = null;
       this.password = null;
-    
+      
       this.login = () => {
         console.log(`${this.username} is now logged in their password is ${this.password}`);
         Serve.login(this.username, this.password);
