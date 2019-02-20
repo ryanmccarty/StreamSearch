@@ -1,5 +1,5 @@
 angular.module('app')
-    .component('greet', {
+  .component('greet', {
     bindings: {
       log: '<',
       path: '<',
@@ -9,4 +9,3 @@ angular.module('app')
     },
     templateUrl: '../templates/greet.html',
   });
-  
