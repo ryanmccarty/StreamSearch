@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser')
 const db = require('../database/index.js');
+const bcrypt = require('bcrypt');
 
 app.use(bodyParser.json());
 app.use(express.static('client'));
@@ -19,9 +20,9 @@ app.listen(port, () => {
 //on login compare user data to login attempt
 app.post('/login', (req, res) => {
   // res.redirect('/search')
-  let username = req.body.username;
-  let password = req.body.username;
+  
   console.log(req.post, 'made it to login');
+  
   res.send('cool');
   //validate credentials
   //if valid login, redirect to '/search'
@@ -32,8 +33,11 @@ app.post('/login', (req, res) => {
 
 //upon signup, generates a session and cookie, sends to main page (search page?)
 app.post('/signup', (req, res) => {
-
   console.log(req.body)
+  const salt = bcrypt.genSaltSync(8);
+  const hashPassword = bcrypt.hashSync(req.body.password, salt);
+  let username = req.body.username;
+  db.User.create({ user_name: username, hashed_password: hashPassword })
   res.send('server recieved signup');
   //create new user on table
   //if username already exists, keep at signup
