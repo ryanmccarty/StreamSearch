@@ -2,13 +2,13 @@
 // const axios = require('axios');
 
 angular.module('app')
-  .service('items', function serve($http) {
+  .service('Serve', function Serve($http) {
     this.login = (username, password) => {
-      $http.get('/login', {
+      $http.post('/login', {
         username, password
       })
-        .then(() => {
-          console.log('login request worked');
+        .then((response) => {
+          console.log(response, 'login request worked');
         })
         .catch((error) => {
           console.error(error);
@@ -19,7 +19,8 @@ angular.module('app')
       $http.post('/signup', {
         username, fullname, password, services, country
       })
-        .then(() => {
+        .then((response) => {
+          console.log(response.data, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
           console.log('signup request worked');
         })
         .catch((error) => {

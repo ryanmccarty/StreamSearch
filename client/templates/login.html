@@ -9,9 +9,9 @@
 <div>
   <form action='/login' id='loginPage'>
     <table></table>
-      <input ng-model="username" class="form-control mr-sm-1" type="text" style="width: 50%" placeholder="Username" required /><br>
-      <input ng-model="password" class="form-control mr-sm-1" type="text" style="width: 50%" placeholder="Password" required /><br>
-      <button type='button' ng-click='$ctrl.login(username, password)'>Login</button>
+      <input ng-model="$ctrl.username" class="form-control mr-sm-1" type="text" style="width: 50%" placeholder="Username" required /><br>
+      <input ng-model="$ctrl.password" class="form-control mr-sm-1" type="text" style="width: 50%" placeholder="Password" required /><br>
+      <button type='button' ng-click='$ctrl.login()'>Login</button>
   </form>
 </div>
 <!-- ng-repeat="user in $ctrl.list"
