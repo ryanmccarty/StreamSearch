@@ -4,6 +4,7 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser')
 const db = require('../database/index.js');
 const bcrypt = require('bcrypt');
+const utellySample = require('../sampledata/utelly.json');
 
 app.use(bodyParser.json());
 app.use(express.static('client'));
@@ -74,7 +75,7 @@ app.post('/search', (req, res) => {
   //should call axios requests
   //should send results to client and database
   console.log(req.body, 'server received this search request')
-  res.status(200).send();
+  res.status(200).send(utellySample);
 })
 
 //get request sent on logout click

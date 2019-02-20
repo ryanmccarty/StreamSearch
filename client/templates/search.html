@@ -1,8 +1,18 @@
 <div class="search">
   <form class="search-form">
-    <input class="search-input" 
-    ng-model="searchTerm" 
-    ng-model-options="{ debounce: 500 }"
-    ng-change="$ctrl.searchFor(searchTerm)">
+    <input class="search-input" placeholder="Search by title" ng-model="searchTerm">
   </form>
+  <form class="search-form">
+    <input class="search-input" placeholder="...or by genre" ng-model="genre">
+  </form>
+  <label>
+    I'm looking for...
+    <input type="radio" ng-model="type" value="TV">
+    a TV show
+  </label>
+  <label>
+    <input type="radio" ng-model="type" value="movie">
+    a movie
+  </label></br>
+  <button ng-click="$ctrl.searchFor(searchTerm, type, genre)">Search the streams!</button>
 </div>

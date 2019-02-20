@@ -3,10 +3,9 @@ angular.module('app')
     controller(Serve) {
       const search = this;
 
-      search.searchTerm = '';
-
-      search.searchFor = function (term) {
-        Serve.search(term);
+      search.searchFor = function (searchTerm, type, genre) {
+        console.log({searchTerm, type, genre});
+        // Serve.search(term);
       }
     },
     templateUrl: 'templates/search.html',
