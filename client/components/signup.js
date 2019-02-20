@@ -1,5 +1,9 @@
 angular.module('app')
   .component('signUp', {
+    bindings: {
+      path: '<',
+      redirect: '<',
+    },
   controller(){
     this.username = null;
     this.fullname = null;

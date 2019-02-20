@@ -1,7 +1,6 @@
 angular.module('app')
     .component('logIn', {
     bindings: {
-      
     },
     controller(){
     

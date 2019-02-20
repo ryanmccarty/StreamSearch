@@ -18,13 +18,16 @@
   },
   "homepage": "https://github.com/cain-sugar/StreamSearch#readme",
   "dependencies": {
+    "@angular/router": "^7.2.5",
     "angular": "^1.7.7",
+    "angular-route": "^1.7.7",
     "axios": "^0.18.0",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "http": "0.0.0",
     "mysql": "^2.16.0",
+    "nodemon": "^1.18.10",
     "mysql2": "^1.6.5",
     "sequelize": "^4.42.0",
     "underscore": "^1.9.1"
