@@ -1,4 +1,6 @@
-angular.module('app', ['ui.router']).config(function($stateProvider) {
+angular.module('app', ['ui.router']).config(function($stateProvider, $locationProvider) {
+  $locationProvider.html5Mode(true);
+$locationProvider.hashPrefix('');
   const appState = {
     name: 'app',
     url: '/',
