@@ -5,12 +5,11 @@
       <input ng-model='$ctrl.username' type='text' style="width: 50%" placeholder="Username" required /><br>
       <input ng-model='$ctrl.fullname' type='text' style="width: 50%" placeholder="Full Name" required /><br>
       <input ng-model='$ctrl.password' type='text' style="width: 50%" placeholder="Password" required /><br>
-      <input ng-model='$ctrl.services' type='text' style="width: 50%" placeholder="Servces" required /><br>
       <input ng-model='$ctrl.country' type='text' style="width: 50%" placeholder="Country" required /><br>
-    </table></form>
-    <div>
-    <select-services />
+    </table>
+  </form>
+  <div>
+    <select-services create-user='$ctrl.createUser'/>
   </div>
-    <button type='button' ng-click='$ctrl.createUser()'>Sign Up</button>
-  </div>
+</div>
   
