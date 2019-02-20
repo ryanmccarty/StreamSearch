@@ -34,11 +34,13 @@ app.post('/login', (req, res) => {
 //upon signup, generates a session and cookie, sends to main page (search page?)
 app.post('/signup', (req, res) => {
   console.log(req.body)
-  const salt = bcrypt.genSaltSync(8);
-  const hashPassword = bcrypt.hashSync(req.body.password, salt);
-  let username = req.body.username;
-  db.User.create({ user_name: username, hashed_password: hashPassword })
-  res.send('server recieved signup');
+  
+  // const salt = bcrypt.genSaltSync(8);
+  // const hashPassword = bcrypt.hashSync(req.body.password, salt);
+  // let username = req.body.username;
+  // db.User.create({ user_name: username, hashed_password: hashPassword })
+  // res.send('server recieved signup');
+  
   //create new user on table
   //if username already exists, keep at signup
   //redirect to '/search'
