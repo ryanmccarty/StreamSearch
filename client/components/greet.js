@@ -2,7 +2,7 @@ angular.module('app')
     .component('greet', {
     bindings: {
       log: '<',
-      count: '<',
+      path: '<',
     },
     controller() {
     },

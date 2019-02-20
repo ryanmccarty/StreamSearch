@@ -1,7 +1,7 @@
 angular.module('app')
   .component('selectServices', {
-    templateUrl: 'templates/selectServices.html',
-    controller: function() {
+    templateUrl: '../templates/selectServices.html',
+    controller() {
       const selectServices = this;
 
       selectServices.serviceList = {

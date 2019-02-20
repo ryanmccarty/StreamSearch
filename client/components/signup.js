@@ -1,8 +1,8 @@
 angular.module('app')
-  .component('signUp', {
+  .component('signup', {
     bindings: {
       path: '<',
-      redirect: '<',
+      log: '<',
     },
   controller(){
     this.username = null;
