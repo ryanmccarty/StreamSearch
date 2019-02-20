@@ -25,10 +25,18 @@ $locationProvider.hashPrefix('');
     redirectTo: 'app'
   }
 
+  const searchState = {
+    name: 'search',
+    url: '/search',
+    component: 'search'
+  }
+
   $stateProvider.state(signupState);
   $stateProvider.state(loginState);
   $stateProvider.state(logoutState);
   $stateProvider.state(appState);
+  $stateProvider.state(searchState);
+
 });
 
 //'itemsService'
