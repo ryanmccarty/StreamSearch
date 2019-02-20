@@ -65,10 +65,10 @@ app.post('/signup', (req, res) => {
     hashed_password: hashPassword, 
     user_country: country})
   //////////////////////////////////////////////////////////
-
-  res.send('server recieved signup');
   
   //redirect to '/search'
+  res.send('server recieved signup');
+  
 })
 
 //routes the user to their profile and queries database for their info
