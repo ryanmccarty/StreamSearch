@@ -34,15 +34,40 @@ app.post('/login', (req, res) => {
 //upon signup, generates a session and cookie, sends to main page (search page?)
 app.post('/signup', (req, res) => {
   console.log(req.body)
+  //Services//////////////////////////////////////////////
+  let services = req.body.services;
+  const crunchyroll = services.crunchyroll;
+  const googleplay = services.googleplay;
+  const hulu = services.hulu;
+  const iTunes = services.iTunes;
+  const netflix = services.netflix;
+  const primevideo = services.primevideo;
+
+  db.Service.create({
+    service_crunchyroll: crunchyroll,
+    service_googleplay: googleplay,
+    service_hulu: hulu,
+    service_iTunes: iTunes,
+    service_netflix: netflix,
+    service_primevideo: primevideo
+  });
+  //////////////////////////////////////////////////////////
+  //Users///////////////////////////////////////////////////
+  let username = req.body.username;
+  let country = req.body.country;
+  let fullname = req.body.fullname;
+  const salt = bcrypt.genSaltSync(8);
+  const hashPassword = bcrypt.hashSync(req.body.password, salt);
   
-  // const salt = bcrypt.genSaltSync(8);
-  // const hashPassword = bcrypt.hashSync(req.body.password, salt);
-  // let username = req.body.username;
-  // db.User.create({ user_name: username, hashed_password: hashPassword })
-  // res.send('server recieved signup');
+  db.User.create({ 
+    user_name: username,
+    user_fullname: fullname, 
+    hashed_password: hashPassword, 
+    user_country: country})
+  //////////////////////////////////////////////////////////
+
+  res.send('server recieved signup');
   
-  //create new user on table
-  //if username already exists, keep at signup
   //redirect to '/search'
 })
 

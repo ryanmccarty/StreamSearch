@@ -22,7 +22,12 @@ const Service = db.define('Service', {
     primaryKey: true,
     autoIncrement: true,
   },
-  service_name: Sequelize.STRING,
+  service_crunchyroll: Sequelize.STRING,
+  service_googleplay: Sequelize.STRING,
+  service_hulu: Sequelize.STRING,
+  service_iTunes: Sequelize.STRING,
+  service_netflix: Sequelize.STRING,
+  service_primevideo: Sequelize.STRING,
   // service_logo: Sequelize.STRING,
 })
 
