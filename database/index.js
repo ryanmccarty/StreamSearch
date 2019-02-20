@@ -11,7 +11,8 @@ const User = db.define('User', {
     autoIncrement: true,
   },
   user_name: Sequelize.STRING,
-  // full_name: Sequelize.STRING,
+  user_fullname: Sequelize.STRING,
+  user_country: Sequelize.STRING,
   hashed_password: Sequelize.STRING.BINARY,
 }) 
 
@@ -22,7 +23,7 @@ const Service = db.define('Service', {
     autoIncrement: true,
   },
   service_name: Sequelize.STRING,
-  service_logo: Sequelize.STRING,
+  // service_logo: Sequelize.STRING,
 })
 
 const Movie = db.define('Movie', {
@@ -122,4 +123,5 @@ db
 
 module.exports= {
   User: User, 
+  Service: Service,
 }
