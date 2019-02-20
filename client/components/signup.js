@@ -8,10 +8,10 @@ angular.module('app')
     this.username = null;
     this.fullname = null;
     this.password = null;
-    this.services = null;
     this.country = null;
-    this.createUser = () => {
-      Serve.signup(this.username, this.fullname, this.password, this.services, this.country);
+    
+    this.createUser = (services) => {
+      Serve.signup(this.username, this.fullname, this.password, this.country, services);
     }
   },
     templateUrl: '/templates/signup.html',

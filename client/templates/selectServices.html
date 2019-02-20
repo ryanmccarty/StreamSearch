@@ -4,10 +4,7 @@
   height=100 width=100 
   src="assets/serviceLogos/{{service}}.png" />
   <form ng-repeat-end>
-    <input type="checkbox"
-    ng-model="$ctrl.serviceList[service]" 
-    >
-    </input>
+    <input type="checkbox" ng-model="$ctrl.serviceList[service]" />
   </form>
-  <button ng-click="$ctrl.submitList()">Select these services!</button>
+  <button ng-click="$ctrl.createUser($ctrl.serviceList)">Sign up!</button>
 </div>

@@ -15,9 +15,9 @@ angular.module('app')
         });
     };
 
-    this.signup = (username, fullname, password, services, country) => {
+    this.signup = (username, fullname, password, country, services) => {
       $http.post('/signup', {
-        username, fullname, password, services, country
+        username, fullname, password, country, services
       })
         .then((response) => {
           console.log(response.data, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
@@ -27,6 +27,16 @@ angular.module('app')
           console.error(error);
         });
     };
+
+    this.search = (query) => {
+      $http.post('/search', query)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    } 
   });
 
 

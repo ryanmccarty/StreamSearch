@@ -31,11 +31,22 @@ $locationProvider.hashPrefix('StreamSearch');
     redirectTo: 'app'
   }
 
+  const searchState = {
+    name: 'search',
+    url: '/search',
+    component: 'search'
+  }
+
   $stateProvider.state(signupState);
   $stateProvider.state(loginState);
   $stateProvider.state(logoutState);
   $stateProvider.state(appState);
+<<<<<<< HEAD
   $stateProvider.state(blankState);
+=======
+  $stateProvider.state(searchState);
+
+>>>>>>> 531967f45198e6d9665bf0aac7e35bac9d31dc9d
 });
 
 //'itemsService'
