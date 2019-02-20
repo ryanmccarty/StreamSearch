@@ -10,7 +10,10 @@ const User = db.define('User', {
     primaryKey: true,
     autoIncrement: true,
   },
-  user_name: Sequelize.STRING,
+  user_name: {
+    type: Sequelize.STRING,
+    unique: true,
+  },
   user_fullname: Sequelize.STRING,
   user_country: Sequelize.STRING,
   hashed_password: Sequelize.STRING.BINARY,
@@ -22,7 +25,12 @@ const Service = db.define('Service', {
     primaryKey: true,
     autoIncrement: true,
   },
-  service_name: Sequelize.STRING,
+  service_crunchyroll: Sequelize.STRING,
+  service_googleplay: Sequelize.STRING,
+  service_hulu: Sequelize.STRING,
+  service_iTunes: Sequelize.STRING,
+  service_netflix: Sequelize.STRING,
+  service_primevideo: Sequelize.STRING,
   // service_logo: Sequelize.STRING,
 })
 
@@ -40,6 +48,7 @@ const Movie = db.define('Movie', {
   recently_searched: Sequelize.BOOLEAN,
 
 })
+
 
 const Movie_Service = db.define('Movie_Service', {
   id_service_movie: {
@@ -62,6 +71,9 @@ const Movie_Service = db.define('Movie_Service', {
     }
   }
 })
+Movie.belongsToMany(Service, { through: Movie_Service });
+Service.belongsToMany(Movie, { through: Movie_Service }); 
+
 
 const User_Movie = db.define('User_Movie', {
   id_user_movie: {
@@ -106,7 +118,10 @@ const User_Service = db.define('User_Service', {
     }
   }
 })
-
+User_Service.belongsTo(User);
+User_Service.belongsTo(Service);
+User.belongsToMany(Service, { through: User_Service });
+Service.belongsToMany(User, { through: User_Service}); 
 
 db.sync({force: true});
 
