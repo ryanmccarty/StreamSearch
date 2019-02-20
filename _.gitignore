@@ -27,4 +27,9 @@ dist/
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
 bower_components/
+<<<<<<< HEAD
+
+.vscode
+=======
 .vscode/
+>>>>>>> 4f9f46bb98c4b7ceacf236d6636421ebd3b655f0
