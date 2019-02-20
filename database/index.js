@@ -11,7 +11,7 @@ const User = db.define('User', {
     autoIncrement: true,
   },
   user_name: Sequelize.STRING,
-  full_name: Sequelize.STRING,
+  // full_name: Sequelize.STRING,
   hashed_password: Sequelize.STRING.BINARY,
 }) 
 
@@ -120,4 +120,6 @@ db
   .done();
 
 
-module.exports.db = db;
+module.exports= {
+  User: User, 
+}
