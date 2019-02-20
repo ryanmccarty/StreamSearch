@@ -32,6 +32,10 @@ app.post('/login', (req, res) => {
 
 })
 
+app.get('/login', (req, res) => {
+  
+})
+
 //upon signup, generates a session and cookie, sends to main page (search page?)
 app.post('/signup', (req, res) => {
   console.log(req.body)
