@@ -15,6 +15,7 @@ app.listen(port, () => {
 
 //on login compare user data to login attempt
 app.get('/login', (req, res) => {
+  // res.redirect('/search')
   //validate credentials
   //if valid login, redirect to '/search'
   //else keep at login
@@ -22,6 +23,7 @@ app.get('/login', (req, res) => {
 
 //upon signup, generates a session and cookie, sends to main page (search page?)
 app.post('/signup', (req, res) => {
+  res.redirect('/signup');
   //create new user on table
   //if username already exists, keep at signup
   //redirect to '/search'

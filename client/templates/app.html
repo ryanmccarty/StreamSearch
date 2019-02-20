@@ -1,6 +1,10 @@
+
 <div>
-  <sign-Up />
+  <greet path="$ctrl.route" log="$ctrl.login" />
 </div>
 <div>
-  <log-In />
+  <login ng-if="$ctrl.route === '/login'" path="$ctrl.login" count="$ctrl.count" />
+</div>
+<div>
+  <signup ng-hide="$ctrl.route" log="$ctrl.login" count="$ctrl.count" />
 </div>
