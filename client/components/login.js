@@ -1,6 +1,7 @@
 angular.module('app')
-    .component('logIn', {
+    .component('login', {
     bindings: {
+      path: '<',
     },
     controller(){
     

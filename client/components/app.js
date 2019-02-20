@@ -7,8 +7,9 @@ angular.module('app')
       //  this.items = data;
       //})
       };
+      this.route = '/'
       this.login = () => {
-        console.log('hi');
+        this.route = '/login'
       };
     },
     templateUrl: '../templates/app.html',
