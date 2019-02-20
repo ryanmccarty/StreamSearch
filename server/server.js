@@ -15,7 +15,7 @@ app.listen(port, () => {
 
 //on login compare user data to login attempt
 app.get('/login', (req, res) => {
-  res.redirect('/login');
+  // res.redirect('/search')
   //validate credentials
   //if valid login, redirect to '/search'
   //else keep at login

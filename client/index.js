@@ -1,15 +1,25 @@
-angular.module('app', ["ngRoute"]).config(function ($routeProvider,$locationProvider) {
-  $locationProvider.hashPrefix('');
-  $routeProvider
-  .when("/", {
-    templateUrl : "templates/app.html"
-  })
-  .when("/login", {
-    templateUrl : "templates/login.html"
-  })
-  .when("/signup", {
-    templateUrl : "templates/signup.html"
-  });
+angular.module('app', ['ui.router']).config(function($stateProvider) {
+  const appState = {
+    name: 'app',
+    url: '/',
+    component: 'app'
+  }
+  
+  const signupState = {
+    name: 'signup',
+    url: '/signup',
+    component: 'signup'
+  }
+
+  const loginState = {
+    name: 'login',
+    url: '/login',
+    component: 'login'
+  }
+
+  $stateProvider.state(signupState);
+  $stateProvider.state(loginState);
+  $stateProvider.state(appState);
 });
 
 //'itemsService'
