@@ -9,7 +9,7 @@ angular.module('app')
       };
       this.route = '/'
       this.login = () => {
-        this.route = '/login'
+        console.log('hi');
       };
     },
     templateUrl: '../templates/app.html',

@@ -4,16 +4,15 @@ angular.module('app')
       path: '<',
       log: '<',
     },
-  controller(){
+    controller(Serve){
     this.username = null;
     this.fullname = null;
     this.password = null;
     this.services = null;
     this.country = null;
-    this.signup = () => {
-      console.log('user has signed up');
-      // itemsService.sendText(ctrl.username, ctrl.fullname, ctrl.password, ctrl.services, ctrl.country)
-    };
+    this.createUser = () => {
+      Serve.signup(this.username, this.fullname, this.password, this.services, this.country);
+    }
   },
     templateUrl: '/templates/signup.html',
 })
