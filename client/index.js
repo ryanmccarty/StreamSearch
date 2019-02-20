@@ -17,8 +17,15 @@ angular.module('app', ['ui.router']).config(function($stateProvider) {
     component: 'login'
   }
 
+  const logoutState = {
+    name: 'logout',
+    url: '/logout',
+    redirectTo: 'app'
+  }
+
   $stateProvider.state(signupState);
   $stateProvider.state(loginState);
+  $stateProvider.state(logoutState);
   $stateProvider.state(appState);
 });
 
