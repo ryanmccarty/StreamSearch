@@ -27,6 +27,18 @@ angular.module('app')
           console.error(error);
         });
     };
+
+    this.search = (term) => {
+      $http.post('/search', {
+        term
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    } 
   });
 
 

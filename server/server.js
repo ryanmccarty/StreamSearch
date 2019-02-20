@@ -70,9 +70,11 @@ app.get('/', (req, res) => {
 })
 
 //get request sent when search is performed
-app.get('/videos', (req, res) => {
+app.post('/search', (req, res) => {
   //should call axios requests
   //should send results to client and database
+  console.log(req.body, 'server received this search request')
+  res.status(200).send();
 })
 
 //get request sent on logout click
@@ -80,3 +82,4 @@ app.get('/logout', (req, res) => {
   //close user session and delete cookies
   //redirect to '/login'
 })
+
