@@ -1,5 +1,4 @@
-// Look up requiring axios
-// const axios = require('axios');
+
 
 angular.module('app')
   .service('Serve', function Serve($http) {
@@ -34,30 +33,3 @@ angular.module('app')
         .catch(callback);
     };
   });
-
-
-// app.config(function($routeProvider){
-//   $routeProvider
-//     .when('/', {
-//       templateUrl: 'Template.login.html'
-//     })
-//     .when('/dashboard', {
-//       templateUrl: 'dashboard.html'
-//     })
-//     .otherwise({
-//       redirectTo: '/'
-//     });
-// });
-
-// app.controller('loginCtrl', function($scope, $location){
-//   $scope.submit = function() {
-//     const username = $scope.username;
-//     const password = $scope.password;
-
-//     if($scope.username === 'kaelyn' && $scope.password === 'chresfield'){
-//       $location.path('/dashboard');
-//     } else{
-//       $location.path('/');
-//     }
-//   }
-// })
