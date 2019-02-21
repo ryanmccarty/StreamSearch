@@ -4,12 +4,19 @@ const app = express();
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
 const db = require('../database/index.js');
 const utellySample = require('../sampledata/utelly.json');
+const local = require('./passport');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
+
+// add and configure middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client'));
 app.use(express.static('node_modules'));
 
@@ -21,42 +28,82 @@ app.use(session({
     console.log(request.sessionID);
     return uuid();
   },
+  store: new FileStore(),
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}!`);
-})
+const users = { username: 'tonild', password: 'erika31' };
 
+passport.use(new LocalStrategy({
+  usernameField: 'username',
+  passwordField: 'password',
+}, (username, password, callback) => {
+  // db.findOne({ username, password })
+  //   .then((user) => {
+  //     if (!user) {
+  //       return callback(null, false, { message: 'Incorrect username or password' });
+  //     }
+  //     return callback(null, user, { message: 'logged in successfully' });
+  //   })
+  //   .catch((err) => {
+  //     callback(err);
+  //   });
+  const user = users[0];
+  if (username === users.username && password === users.password) {
+    console.log('user strategy returned true');
+    return callback(null, user);
+  }
+}));
 
+// user id is saved to the session file store here
+passport.serializeUser((user, callback) => {
+  console.log('inside serizlize user');
+  callback(null, user.id); // id_user
+});
+
+app.get('/', (request, response) => {
+  const uniqueID = uuid();
+  console.log(request.post, 'made it to login');
+
+  // res.send(`Received the unique id: ${uniqueID}`);
+  response.send(200);
+});
 
 //on login compare user data to login attempt
 app.post('/login', (req, res) => {
-  // res.redirect('/search')
-  console.log(req.post, 'made it to login');
-  
-  res.send('cool');
+  console.log('inside POST login function');
+  passport.authenticate('local', (err, user, info) => {
+    console.log('inside passport auth func');
+    console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`);
+    console.log(`req.user: ${JSON.stringify(req.user)}`);
+    req.login(user, (error) => {
+      console.log('inside passport login func');
+      console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`);
+      console.log(`req.user: ${JSON.stringify(req.user)}`);
+      res.send('you were logged in');
+    });
+  })(req, res);
+
+  //res.send('cool');
   //validate credentials
   //if valid login, redirect to '/search'
   //else keep at login
 
-
 })
 
 app.get('/login', (req, res) => {
-  const uniqueID = uuid();
-  console.log(req.post, 'made it to login');
-
-  // res.send(`Received the unique id: ${uniqueID}`);
+  console.log(req.sessionID);
   res.send('logged in');
 })
 
 //upon signup, generates a session and cookie, sends to main page (search page?)
 app.post('/signup', (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   //Services//////////////////////////////////////////////
   let services = req.body.services;
   const crunchyroll = services.crunchyroll;
@@ -129,5 +176,9 @@ app.post('/search', (req, res) => {
 app.get('/logout', (req, res) => {
   //close user session and delete cookies
   //redirect to '/login'
+})
+
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}!`);
 })
 
