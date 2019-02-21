@@ -36,7 +36,6 @@ app.listen(port, () => {
 //on login compare user data to login attempt
 app.post('/login', (req, res) => {
   // res.redirect('/search')
-  const uniqueID = uuid();
   console.log(req.post, 'made it to login');
   
   res.send('cool');
@@ -48,7 +47,11 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-  
+  const uniqueID = uuid();
+  console.log(req.post, 'made it to login');
+
+  // res.send(`Received the unique id: ${uniqueID}`);
+  res.send('logged in');
 })
 
 //upon signup, generates a session and cookie, sends to main page (search page?)
