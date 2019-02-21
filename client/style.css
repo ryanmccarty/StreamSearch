@@ -1,3 +1,19 @@
 .selected-service {
   height: 500px;
 }
+
+.logo {
+  height: 350px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: relative;
+  mix-blend-mode: lighten;
+}
+
+.greet{
+  float: middle;
+    margin-right: 70px;
+  font-size: 30px;
+  margin-left: 3.5em;
+}
