@@ -88,12 +88,12 @@ app.get('/', (req, res) => {
 
 // get request sent when search is performed
 app.post('/search', (req, res) => {
-  //should call axios requests
-  //should send results to client and database
-  console.log(req.body, 'server received this search request')
+  // should call axios requests
+  // should send results to client and database
+  console.log(req.body, 'server received this search request');
   apis.imdb(req, res);
   // res.status(200).send(utellySample);
-})
+});
 
 // get request sent on logout click
 app.get('/logout', (req, res) => {
