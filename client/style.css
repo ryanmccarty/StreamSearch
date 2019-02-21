@@ -1,3 +1,7 @@
 .selected-service {
   height: 500px;
 }
+.carousel {
+  overflow: visible;
+  height: 100%;
+}
