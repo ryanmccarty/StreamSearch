@@ -7,10 +7,10 @@ angular.module('app')
         username, password,
       })
         .then((response) => {
-          console.log(response, 'login request worked');
+          console.log(response, `${username} succesfully logged in!`);
         })
         .catch((error) => {
-          console.error(error);
+          console.error(error, `failed to login ${username}`);
         });
     };
 
