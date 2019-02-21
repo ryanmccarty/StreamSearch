@@ -4,7 +4,7 @@
 angular.module('app')
   .service('Serve', function Serve($http) {
     this.login = (username, password) => {
-      $http.get('/login', {
+      $http.post('/login', {
         username, password,
       })
         .then((response) => {
