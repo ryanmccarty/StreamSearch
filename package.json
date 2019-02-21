@@ -7,6 +7,9 @@
     "test": "mocha",
     "start": "nodemon server/server.js"
   },
+  "eslintConfig": {
+    "extends": "airbnb"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cain-sugar/StreamSearch.git"

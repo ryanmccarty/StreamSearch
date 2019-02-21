@@ -4,6 +4,7 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser')
 const db = require('../database/index.js');
 const bcrypt = require('bcrypt');
+const utellySample = require('../sampledata/utelly.json');
 
 app.use(bodyParser.json());
 app.use(express.static('client'));
@@ -31,17 +32,48 @@ app.post('/login', (req, res) => {
 
 })
 
+app.get('/login', (req, res) => {
+  
+})
+
 //upon signup, generates a session and cookie, sends to main page (search page?)
 app.post('/signup', (req, res) => {
   console.log(req.body)
+  //Services//////////////////////////////////////////////
+  let services = req.body.services;
+  const crunchyroll = services.crunchyroll;
+  const googleplay = services.googleplay;
+  const hulu = services.hulu;
+  const iTunes = services.iTunes;
+  const netflix = services.netflix;
+  const primevideo = services.primevideo;
+
+  db.Service.create({
+    service_crunchyroll: crunchyroll,
+    service_googleplay: googleplay,
+    service_hulu: hulu,
+    service_iTunes: iTunes,
+    service_netflix: netflix,
+    service_primevideo: primevideo
+  });
+  //////////////////////////////////////////////////////////
+  //Users///////////////////////////////////////////////////
+  let username = req.body.username;
+  let country = req.body.country;
+  let fullname = req.body.fullname;
   const salt = bcrypt.genSaltSync(8);
   const hashPassword = bcrypt.hashSync(req.body.password, salt);
-  let username = req.body.username;
-  db.User.create({ user_name: username, hashed_password: hashPassword })
-  res.send('server recieved signup');
-  //create new user on table
-  //if username already exists, keep at signup
+  
+  db.User.create({ 
+    user_name: username,
+    user_fullname: fullname, 
+    hashed_password: hashPassword, 
+    user_country: country})
+  //////////////////////////////////////////////////////////
+  
   //redirect to '/search'
+  res.send('server recieved signup');
+  
 })
 
 //routes the user to their profile and queries database for their info
@@ -68,9 +100,11 @@ app.get('/', (req, res) => {
 })
 
 //get request sent when search is performed
-app.get('/videos', (req, res) => {
+app.post('/search', (req, res) => {
   //should call axios requests
   //should send results to client and database
+  console.log(req.body, 'server received this search request')
+  res.status(200).send(utellySample);
 })
 
 //get request sent on logout click
@@ -78,3 +112,4 @@ app.get('/logout', (req, res) => {
   //close user session and delete cookies
   //redirect to '/login'
 })
+

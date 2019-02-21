@@ -1,0 +1,36 @@
+<div class="search">
+    <ul id="slide-out" class="sidenav">
+      <li><div class="user-view">
+        <div class="background">
+          <img src="https://media.giphy.com/media/hQKLmP8DTdOve/giphy.gif">
+        </div>
+        <a href="#user"><img class="circle" src="http://chittagongit.com//images/cool-anime-icon/cool-anime-icon-20.jpg"></a>
+        <a href="#name"><span class="white-text name">John Doe</span></a>
+        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+      </div></li>
+      <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+      <li><a href="#!">Second Link</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">Subheader</a></li>
+      <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    </ul> 
+      <a href="/search" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  <form class="search-form">
+    <input class="search-input" placeholder="Search by title" ng-model="searchTerm">
+    <input class="search-input" placeholder="...or by genre" ng-model="genre">
+    <span>I'm looking for...</span>
+    <p>
+      <label>  
+        <input name="group1" type="radio" ng-model="type" value="TV" checked />
+        <span>a TV show</span>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input name="group1" type="radio" ng-model="type" value="movie"/>
+        <span>a movie</span>
+      </label>
+    </p>
+  </form>
+  <button ng-click="$ctrl.searchFor(searchTerm, type, genre)">Search the streams!</button>
+</div>
