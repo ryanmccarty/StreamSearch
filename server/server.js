@@ -1,9 +1,12 @@
-const express = require ('express');
+const express = require('express');
+
 const app = express();
 const port = process.env.PORT || 3000;
-const bodyParser = require('body-parser')
-const db = require('../database/index.js');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
+const db = require('../database/index.js');
 const utellySample = require('../sampledata/utelly.json');
 
 app.use(bodyParser.json());
@@ -11,9 +14,21 @@ app.use(express.static('client'));
 app.use(express.static('node_modules'));
 
 
+// creates the sessionID
+app.use(session({
+  genid: (request) => {
+    console.log('inside session');
+    console.log(request.sessionID);
+    return uuid();
+  },
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}));
+
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}!`)
+  console.log(`Server is listening on port ${port}!`);
 })
 
 
@@ -21,7 +36,7 @@ app.listen(port, () => {
 //on login compare user data to login attempt
 app.post('/login', (req, res) => {
   // res.redirect('/search')
-  
+  const uniqueID = uuid();
   console.log(req.post, 'made it to login');
   
   res.send('cool');
