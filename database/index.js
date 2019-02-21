@@ -140,3 +140,5 @@ module.exports= {
   User: User, 
   Service: Service,
 }
+
+module.exports.db = db;
