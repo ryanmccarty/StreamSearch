@@ -37,12 +37,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const users = { username: 'tonild', password: 'erika31' };
+const users = [{ id: 983, username: 'tonild', password: 'erika31' }];
 
 passport.use(new LocalStrategy({
   usernameField: 'username',
   passwordField: 'password',
 }, (username, password, callback) => {
+  console.log('inside local strategy')
   // db.findOne({ username, password })
   //   .then((user) => {
   //     if (!user) {
@@ -54,7 +55,8 @@ passport.use(new LocalStrategy({
   //     callback(err);
   //   });
   const user = users[0];
-  if (username === users.username && password === users.password) {
+  console.log(user);
+  if (username === user.username && password === user.password) {
     console.log('user strategy returned true');
     return callback(null, user);
   }
