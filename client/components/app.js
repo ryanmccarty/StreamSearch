@@ -1,4 +1,3 @@
-
 angular.module('app')
   .component('app', {
     bindings: {},
