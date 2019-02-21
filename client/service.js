@@ -27,13 +27,9 @@ angular.module('app')
         });
     };
 
-    this.search = (query) => {
+    this.search = (query, callback) => {
       $http.post('/search', query)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        .then(callback)
+        .catch(callback);
     };
   });
