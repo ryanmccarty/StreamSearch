@@ -2,23 +2,23 @@ const data = {
   Search: [
     {
       title: '',
-      poster: '',
+      poster: 'assets/serviceLogos/reel.png',
     },
     {
       title: '',
-      poster: '',
+      poster: 'assets/serviceLogos/reel.png',
     },
     {
       title: '',
-      poster: '',
+      poster: 'assets/serviceLogos/reel.png',
     },
     {
       title: '',
-      poster: '',
+      poster: 'assets/serviceLogos/reel.png',
     },
     {
       title: '',
-      poster: '',
+      poster: 'assets/serviceLogos/reel.png',
     },
   ],
 };
