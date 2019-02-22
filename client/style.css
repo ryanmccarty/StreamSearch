@@ -37,10 +37,10 @@
 
 .carousel {
   overflow: visible;
-  position: absolute;
+  position: relative;
   height: 100%;
-  top: 10%;
-  left: 6%; 
+  top: 5%;
+  left: 3%; 
   /* Cannot be any less than 6%, I got it down to 4 once, but not twice -K */
 }
 
