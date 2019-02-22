@@ -1,5 +1,4 @@
-// Look up requiring axios
-// const axios = require('axios');
+
 
 angular.module('app')
   .service('Serve', function Serve($http) {
@@ -17,10 +16,10 @@ angular.module('app')
 
     this.signup = (username, fullname, password, country, services) => {
       $http.post('/signup', {
-        username, fullname, password, country, services
+        username, fullname, password, country, services,
       })
         .then((response) => {
-          console.log(response.data, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+          console.log(response.data, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
           console.log('signup request worked');
         })
         .catch((error) => {
@@ -28,54 +27,9 @@ angular.module('app')
         });
     };
 
-    this.search = (query) => {
+    this.search = (query, callback) => {
       $http.post('/search', query)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-    } 
+        .then(callback)
+        .catch(callback);
+    };
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// app.config(function($routeProvider){
-//   $routeProvider
-//     .when('/', {
-//       templateUrl: 'Template.login.html'
-//     })
-//     .when('/dashboard', {
-//       templateUrl: 'dashboard.html'
-//     })
-//     .otherwise({
-//       redirectTo: '/'
-//     });
-// });
-
-// app.controller('loginCtrl', function($scope, $location){
-//   $scope.submit = function() {
-//     const username = $scope.username;
-//     const password = $scope.password;
-
-//     if($scope.username === 'kaelyn' && $scope.password === 'chresfield'){
-//       $location.path('/dashboard');
-//     } else{
-//       $location.path('/');
-//     }
-//   }
-// })

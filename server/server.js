@@ -1,6 +1,8 @@
 const express = require('express');
 
 const app = express();
+const session = require('express-session');
+
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -12,6 +14,7 @@ const utellySample = require('../sampledata/utelly.json');
 const local = require('./passport');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const apis = require('./request');
 
 
 // add and configure middleware
@@ -19,7 +22,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client'));
 app.use(express.static('node_modules'));
-
 
 // creates the sessionID
 app.use(session({
@@ -29,7 +31,7 @@ app.use(session({
     return uuid();
   },
   store: new FileStore(),
-  secret: 'keyboard cat',
+  secret: 'land shark kitten',
   resave: false,
   saveUninitialized: true,
 }));
@@ -143,45 +145,47 @@ app.post('/signup', (req, res) => {
 
   //redirect to '/search'
   res.send('server recieved signup');
-  
-})
+});
+// SignUp End /////////////////////////////////////////////////////////////
 
-//routes the user to their profile and queries database for their info
+
+// routes the user to their profile and queries database for their info
 app.get('/profile', (req, res) => {
-  //call query function in database
-  //should return favorites
-  //should return watch later
-  //should return users services
-})
+  // call query function in database
+  // should return favorites
+  // should return watch later
+  // should return users services
+});
 
-//activates when a user clicks the services on their profile
+// activates when a user clicks the services on their profile
 app.patch('/profile', (req, res) => {
-  //should perform an update query to database
-  //should be able to add or remove services
-})
+  // should perform an update query to database
+  // should be able to add or remove services
+});
 
-//triggered when user tries to access main page (search page?)
+// triggered when user tries to access main page (search page?)
 app.get('/', (req, res) => {
-  //should check for user authorization
-  //if correct redirect user to '/search'
-  //if not, redirect to login
-  //query database for favorites
-  //if no favorites exists, send axios request for top movies to display
-})
+  // should check for user authorization
+  // if correct redirect user to '/search'
+  // if not, redirect to login
+  // query database for favorites
+  // if no favorites exists, send axios request for top movies to display
+});
 
-//get request sent when search is performed
+// get request sent when search is performed
 app.post('/search', (req, res) => {
-  //should call axios requests
-  //should send results to client and database
-  console.log(req.body, 'server received this search request')
-  res.status(200).send(utellySample);
-})
+  // should call axios requests
+  // should send results to client and database
+  console.log(req.body, 'server received this search request');
+  apis.imdb(req, res);
+  // res.status(200).send(utellySample);
+});
 
-//get request sent on logout click
+// get request sent on logout click
 app.get('/logout', (req, res) => {
-  //close user session and delete cookies
-  //redirect to '/login'
-})
+  // close user session and delete cookies
+  // redirect to '/login'
+});
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}!`);
