@@ -5,7 +5,7 @@ const anime = require('../sampledata/kitsu');
 const movies = require('../sampledata/movieDB');
 const utelly = require('../sampledata/utelly');
 
-const utellyGet = ({ query }, res) => {
+const utellyGet = (query) => {
   // axios({
   //   method: 'GET',
   //   url: `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${query.title}&country=${query.location}`,
@@ -17,7 +17,7 @@ const utellyGet = ({ query }, res) => {
 module.exports.utellyGet = utellyGet;
 
 
-const movieDbGet = ({ query }, res) => {
+const movieDbGet = (query) => {
   // if (query.lookup === 'Discover') {
   //   axios({
   //     method: 'GET',
@@ -45,7 +45,7 @@ const movieDbGet = ({ query }, res) => {
 
 module.exports.movies = movieDbGet;
 
-const IMDB = ({ query }, res) => {
+const IMDB = (query) => {
   // axios({
   //   method: 'GET',
   //   url: 'http://www.omdbapi.com/',
@@ -59,7 +59,7 @@ const IMDB = ({ query }, res) => {
 };
 module.exports.imdb = IMDB;
 
-const animeGet = ({ query }, res) => {
+const animeGet = (query) => {
   // axios({
   //   method: 'get',
   //   url: `https://kitsu.io/api/edge/anime?filter[${query.filterBy}]=${query.term}&filter[streamers]=crunchyroll`,
