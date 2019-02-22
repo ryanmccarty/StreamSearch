@@ -38,7 +38,7 @@ angular.module('app')
     };
 
     this.getInfo = (username) => {
-      $http.get('/profile', {
+      $http.get(`/profile/${username}`, {
         params: { username },
       })
         .then((response) => {

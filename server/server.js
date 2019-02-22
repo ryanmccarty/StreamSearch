@@ -52,7 +52,7 @@ app.post('/login', (req, res) => {
 // LoginEnd //////////////////////////////////////////////////////////////////////////////
 
 // Get User Profile information /////////////////////////////////////////////////////////////////
-app.get('/profile', (req, res) => {
+app.get('/profile/:username', (req, res) => {
   const { username } = req.query;
   db.getUserInfo(username, (result) => {
     if (result === 'success') {
