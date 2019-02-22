@@ -5,7 +5,13 @@ angular.module('app')
     },
     controller(Serve) {
       this.username = 'ryan';
-      Serve.getInfo(this.username);
+      this.services = [];
+      Serve.getInfo(this.username, (userInfo) => {
+        const keys = Object.keys(userInfo);
+        keys.forEach((key) => {
+          if (userInfo[key] === '1' && key !== 'id_service') this.services.push(key.slice(8));
+        });
+      });
     },
     templateUrl: '/templates/profile.html',
   });
