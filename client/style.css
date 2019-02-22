@@ -1,5 +1,9 @@
 .selected-service {
-  height: 500px;
+  opacity: 0.30;
+}
+
+.icon {
+  margin-left: 1.5em;
 }
 
 .logo {
@@ -88,6 +92,11 @@
   top: 75%;
   left: 20%
 }
+
+.collapsible{
+  color: black;
+}
+
 /* .login-button {
   color: #C59942;
 } */
