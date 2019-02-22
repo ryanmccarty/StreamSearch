@@ -149,6 +149,10 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
   top: 55%;
   left: 45%;
 }
-/* .login-button {
-  color: #C59942;
-} */
+
+.profile-page-header{
+  position: absolute;
+  top: 3%;
+  left: 30%;
+  color: white;
+}
