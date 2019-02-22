@@ -10,6 +10,8 @@ const utellyGet = ({ query }, res) => {
   });
 };
 
+module.exports.utellyGet = utellyGet;
+
 
 const movieDbGet = ({ query }, res) => {
   if (query.lookup === 'Discover') {
@@ -36,6 +38,8 @@ const movieDbGet = ({ query }, res) => {
   }
 };
 
+module.exports.movies = movieDbGet;
+
 const IMDB = ({ query }, res) => {
   // axios({
   //   method: 'GET',
@@ -61,14 +65,16 @@ const animeGet = ({ query }, res) => {
   });
 };
 
+module.exports.anime = animeGet;
+
 const genres = [
   {
-    'id': 28,
-    'name': 'Action',
+    id: 28,
+    name: 'Action',
   },
   {
-    'id': 12,
-    'name': 'Adventure',
+    id: 12,
+    name: 'Adventure',
   },
   {
     id: 16,
@@ -76,38 +82,38 @@ const genres = [
   },
   {
     id: 35,
-    'name': 'Comedy',
+    name: 'Comedy',
   },
   {
     id: 80,
-    'name': 'Crime',
+    name: 'Crime',
   },
   {
-    'id': 99,
+    id: 99,
     name: 'Documentary',
   },
   {
     id: 18,
-    'name': 'Drama',
+    name: 'Drama',
   },
   {
     id: 10751,
-    'name': 'Family',
+    name: 'Family',
   },
   {
-    'id': 14,
+    id: 14,
     name: 'Fantasy',
   },
   {
-    'id': 36,
+    id: 36,
     name: 'History',
   },
   {
     id: 27,
-    'name': 'Horror',
+    name: 'Horror',
   },
   {
-    'id': 10402,
+    id: 10402,
     name: 'Music',
   },
   {
@@ -115,7 +121,7 @@ const genres = [
     name: 'Mystery',
   },
   {
-    'id': 10749,
+    id: 10749,
     name: 'Romance',
   },
   {
@@ -124,10 +130,10 @@ const genres = [
   },
   {
     id: 10770,
-    'name': 'TV Movie',
+    name: 'TV Movie',
   },
   {
-    'id': 53,
+    id: 53,
     name: 'Thriller',
   },
   {
@@ -136,6 +142,6 @@ const genres = [
   },
   {
     id: 37,
-    'name': 'Western',
+    name: 'Western',
   },
 ];
