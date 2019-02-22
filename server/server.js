@@ -43,7 +43,6 @@ passport.use(new LocalStrategy({
   usernameField: 'username',
   passwordField: 'password',
 }, (username, password, callback) => {
-  console.log('inside local strategy')
   // db.findOne({ username, password })
   //   .then((user) => {
   //     if (!user) {
@@ -55,44 +54,47 @@ passport.use(new LocalStrategy({
   //     callback(err);
   //   });
   const user = users[0];
-  console.log(user);
   if (username === user.username && password === user.password) {
-    console.log('user strategy returned true');
     return callback(null, user);
   }
 }));
 
 // user id is saved to the session file store here
 passport.serializeUser((user, callback) => {
-  console.log('inside serizlize user');
   callback(null, user.id); // id_user
+});
+
+// the user id passport is saved in the session file
+passport.deserializeUser((id, callback) => {
+  console.log('Inside deserializeUser callback');
+  console.log(`The user id passport saved in the session file store is: ${id}`);
+  const user = users[0].id === id ? users[0] : false;
+  callback(null, user);
+});
+
+// uses the get method to see if a user is authenticated for certain pages
+// this happens after a user is logged in
+app.get('/authrequired', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send('you hit the authentication endpoint\n')
+  } else {
+    res.redirect('/');
+  }
 });
 
 app.get('/', (request, response) => {
   const uniqueID = uuid();
-  console.log(request.post, 'made it to login');
-
-  // res.send(`Received the unique id: ${uniqueID}`);
   response.send(200);
 });
 
 //on login compare user data to login attempt
 app.post('/login', (req, res) => {
-  console.log('inside POST login function');
   passport.authenticate('local', (err, user, info) => {
-    console.log('inside passport auth func');
-    console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`);
-    console.log(`req.user: ${JSON.stringify(req.user)}`);
     req.login(user, (error) => {
-      console.log('inside passport login func');
-      console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`);
-      console.log(`req.user: ${JSON.stringify(req.user)}`);
       res.send('you were logged in');
     });
   })(req, res);
 
-  //res.send('cool');
-  //validate credentials
   //if valid login, redirect to '/search'
   //else keep at login
 
@@ -103,8 +105,8 @@ app.get('/login', (req, res) => {
   res.send('logged in');
 })
 
-//upon signup, generates a session and cookie, sends to main page (search page?)
 app.post('/signup', (req, res) => {
+  console.log(req.sessionID);
   console.log(req.body);
   //Services//////////////////////////////////////////////
   let services = req.body.services;
@@ -130,14 +132,15 @@ app.post('/signup', (req, res) => {
   let fullname = req.body.fullname;
   const salt = bcrypt.genSaltSync(8);
   const hashPassword = bcrypt.hashSync(req.body.password, salt);
-  
-  db.User.create({ 
+
+  db.User.create({
     user_name: username,
-    user_fullname: fullname, 
-    hashed_password: hashPassword, 
-    user_country: country})
+    user_fullname: fullname,
+    hashed_password: hashPassword,
+    user_country: country,
+  });
   //////////////////////////////////////////////////////////
-  
+
   //redirect to '/search'
   res.send('server recieved signup');
   
