@@ -7,10 +7,10 @@ angular.module('app')
         username, password,
       })
         .then((response) => {
-          console.log(response, 'login request worked');
+          console.log(response, `${username} succesfully logged in!`);
         })
         .catch((error) => {
-          console.error(error);
+          console.error(error, `failed to login ${username}`);
         });
     };
 
@@ -19,11 +19,10 @@ angular.module('app')
         username, fullname, password, country, services,
       })
         .then((response) => {
-          console.log(response.data, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-          console.log('signup request worked');
+          console.log(response.data);
         })
         .catch((error) => {
-          console.error(error);
+          alert(error.data);
         });
     };
 

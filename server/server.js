@@ -33,13 +33,17 @@ app.post('/login', (req, res) => {
     .then((user) => {
       bcrypt.compare(req.body.password, user.hashed_password, (error, response) => {
         if (error) {
-          return (error);
+          console.error(error);
+          res.status(500).send('no such user or incorrect password!');
+        } else {
+          console.log(response);
+          req.session.regenerate(() => {
+            req.session.user = req.body.username;
+          });
+          res.status(201).send('logged in!');
         }
-        return req.session.regenerate(() => {
-          req.session.user = req.body.username;
-        });
       });
-      res.send('cool');
+      
       // validate credentials
       // if valid login, redirect to '/search'
       // else keep at login
@@ -53,12 +57,14 @@ app.get('/login', (req, res) => {
 
 // SignUp ////////////////////////////////////////////////////////////////
 app.post('/signup', (req, res) => {
-  db.userServiceHelperFunc(req)
-    .then((response) => {
-      console.log(response);
-    });
-  // redirect to '/search'
-  res.send('server recieved signup');
+  db.userServiceHelperFunc(req, (result) => {
+    if (result === 'success') {
+      res.status(201).send(`${req.body.username} succesfully registered!`);
+      // redirect to '/search'
+    } else {
+      res.status(400).send(result);
+    }
+  });
 });
 // SignUp End /////////////////////////////////////////////////////////////
 
