@@ -32,10 +32,14 @@ angular.module('app')
         .catch(callback);
     };
 
-    // this.getInfo = (username) => {
-    //   console.log(username);
-    //   $http.get('/profile-load', username)
-    //     .then(console.log('cool'))
-    //     .catch(console.log('error'));
-    // };
+    this.getInfo = (username) => {
+      console.log(username);
+      $http.get('/profile-load', username)
+        .then((response) => {
+          console.log(response.data, 'response from request for profile info');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
   });
