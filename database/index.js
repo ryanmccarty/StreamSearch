@@ -188,11 +188,27 @@ const userServiceHelperFunc = (req, cb) => {
     });
 };
 
+// let userid = (`SELECT id_user FROM users WHERE user_name="${username}"` );
+// let userid = (users.findAll({where: {user_name="`${username}`"}}));
+// let servicesID = (`SELECT ServiceIdService FROM user_services WHERE UserIdUser ="${userid}" `);
+// let servicesID = user_services.findOne({where:{UserIdUser="`${userid}"}, attributes:[id_user_services,[ServiceIdService, UserIdUser]]})
+// let services = (`SELECT * FROM services WHERE id_service=${servicesID}`);
+// let services = (services.findAll({where: {id_services="`${servicesID}`"}}))
+
+const getUserInfo = (req, callback) => {
+  const username = req.body.username;
+  const userid = User.findAll({ where: { user_name: `${username}` } });
+  const servicesID = User_Service.findOne({ where: { UserIdUser: `${userid}` }, attributes: ['id_user_service', ['ServiceIdService', 'UserIdUser']] });
+  const services = (Service.findAll({ where: { id_service: `${servicesID}` } }));
+  console.log(services);
+};
+
 module.exports = {
   User,
   Service,
   usernameInDb,
   userServiceHelperFunc,
+  getUserInfo,
 };
 
 

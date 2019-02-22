@@ -49,8 +49,16 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.get('/login', (req, res) => {
-
+app.post('/profile-load', (req, res) => {
+  console.log(req, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  console.log(res, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  db.getUserInfo(req, (result) => {
+    if (result === 'success') {
+      res.status(201).send(`${req.body.username} has their information loaded`);
+    } else {
+      res.status(400).send(result);
+    }
+  });
 });
 // LoginEnd //////////////////////////////////////////////////////////////////////////////
 
