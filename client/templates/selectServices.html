@@ -1,17 +1,17 @@
 <ul class="collapsible">
   <li>
     <div class="collapsible-header">
-      <i class="material-icons">filter_drama</i>
-      Select your services
+      <!-- <i></i> -->
+      Select your Services
     </div>
     <div class="collapsible-body">
-      <img ng-repeat="(service, hasService) in $ctrl.serviceList" service="service" height=100 width=100
+      <img ng-repeat="(service, hasService) in $ctrl.serviceList" service="service" height=60 width=relative
         class="icon"
         ng-src="assets/serviceLogos/{{service}}.png"
         ng-click="$ctrl.click(service)"
         ng-class="{'selected-service': $ctrl.serviceList[service]}"
         />
-      <a ng-click="$ctrl.createUser($ctrl.serviceList)" class="waves-effect waves-light btn">Sign on up!</a>
+      <a ng-click="$ctrl.createUser($ctrl.serviceList)" class="waves-effect grey-text text-darken-4 amber accent-3 btn">Sign up!</a>
     </div>
   </li>
 </ul>
