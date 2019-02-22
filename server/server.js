@@ -26,7 +26,7 @@ app.use(session({
 
 // Login ////////////////////////////////////////////////////////////////////////////////
 app.post('/login', (req, res) => {
-  // res.redirect('/search')
+
 
   console.log(req.post, 'made it to login');
   db.usernameInDb(req.body.username)

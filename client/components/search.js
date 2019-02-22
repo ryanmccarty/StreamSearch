@@ -36,9 +36,9 @@ angular.module('app')
         this.data = data.data;
         M.AutoInit();
       };
-      this.searchFor = (searchTerm, type, genre) => {
+      this.searchFor = (searchTerm, type) => {
         console.log(type);
-        const query = { searchTerm, type, genre };
+        const query = { searchTerm, type };
         Serve.search(query, this.setData);
       };
       this.setData = this.setData.bind(this);
