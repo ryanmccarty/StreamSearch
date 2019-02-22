@@ -8,7 +8,7 @@ angular.module('app')
       this.password = null;
 
       this.login = () => {
-        console.log(`${this.username} is now logged in their password is ${this.password}`);
+        console.log(`logging in ${this.username}...`);
         Serve.login(this.username, this.password);
         //  itemsService.sendText(username, password);
       };
