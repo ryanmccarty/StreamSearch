@@ -88,6 +88,13 @@
   color: white;
 }
 
+.country-header {
+  position: absolute;
+  top: 55%;
+  left: 35%;
+  color: rgb(211, 209, 209);
+}
+
 .collapsible-header {
   position: absolute;
   top: 70%;
