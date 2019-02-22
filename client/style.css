@@ -15,6 +15,19 @@
   mix-blend-mode: lighten;
 }
 
+.logo-search-profile {
+  height: 100px;
+  display: block;
+  width: relative;
+  mix-blend-mode: lighten;
+  margin-left: 1.5em;
+}
+
+.material-icons {
+  color: gold;
+  margin-left: 2.5em;
+}
+
 .greet{
   float: middle;
     margin-right: 150px;
@@ -24,7 +37,11 @@
 
 .carousel {
   overflow: visible;
+  position: absolute;
   height: 100%;
+  top: 10%;
+  left: 6%; 
+  /* Cannot be any less than 6%, I got it down to 4 once, but not twice -K */
 }
 
 .login-signup-img{
@@ -69,7 +86,7 @@
 
 .centered-text-4 {
   position: absolute;
-  top: 60%;
+  top: 60%; 
   left: 35%;
   /* transform: translate(-50%, -50%); */
 }
@@ -126,7 +143,7 @@
 }
 
 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
-  background-color: black;
+  background-color: gold;
   border: black;
 }
 
@@ -144,6 +161,13 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
   font-size: 25px;
 }
 
+.search-input-movie{
+  background-color: whitesmoke;
+  position: absolute;
+  top: 5%;
+  left: 30%;
+}
+
 .btn-large {
   position: absolute;
   top: 55%;
@@ -155,4 +179,8 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
   top: 3%;
   left: 30%;
   color: white;
+}
+
+.group1 {
+  left: 1.5em;
 }
