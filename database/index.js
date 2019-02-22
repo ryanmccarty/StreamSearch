@@ -125,7 +125,8 @@ User_Service.belongsTo(Service);
 User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
-db.sync({ force: true });
+db.sync({ });
+//force: true
 
 const usernameInDb = (username) => {
   User.findOne({ user_name: username });
