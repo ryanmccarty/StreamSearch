@@ -196,19 +196,17 @@ const userServiceHelperFunc = (req, cb) => {
 // let services = (services.findAll({where: {id_services="`${servicesID}`"}}))
 
 const getUserInfo = (username, cb) => {
-  console.log(username, 'username in db');
-  // User.findAll({
-  //   where: {
-  //     user_name: username,
-  //   },
-  //   attributes: ['id_user'],
-  // })
-  //   .then((userid) => {
-  //     console.log(userid);
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //   });
+  User.findOne({
+    where: {
+      user_name: username,
+    },
+  })
+    .then((user) => {
+      console.log(user);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   // console.log(userid, 'userid');
   // const servicesID = User_Service.findOne({ where: { UserIdUser: `${userid}` }, attributes: ['id_user_service', ['ServiceIdService', 'UserIdUser']] });
   // const services = (Service.findAll({ where: { id_service: `${servicesID}` } }));
