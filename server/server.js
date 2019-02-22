@@ -101,8 +101,8 @@ app.post('/search', async (req, res) => {
     if (titles.includes(b.title) && b.vote_count) {
       a.push({
         title: b.title,
-        poster: b.poster_path,
-        backdrop: b.backdrop_path,
+        poster: `http://image.tmdb.org/t/p/w500/${b.poster_path}`,
+        backdrop: `http://image.tmdb.org/t/p/w500/${b.backdrop_path}`,
         overview: b.overview,
         services: utelly.results[titles.indexOf(b.title)].locations,
       });
@@ -110,7 +110,7 @@ app.post('/search', async (req, res) => {
     }
     return a;
   }, []);
-  console.log(movies);
+  res.send(movies);
   // should send results to client and database
   console.log(req.body, 'server received this search request');
   apis.imdb(req, res);

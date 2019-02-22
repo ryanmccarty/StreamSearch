@@ -55,7 +55,7 @@ const IMDB = ({ query }, res) => {
   //     type: query.type,
   //   },
   // });
-  res.send(posters.data.Search);
+  return posters.data.Search;
 };
 module.exports.imdb = IMDB;
 
