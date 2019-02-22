@@ -125,13 +125,12 @@ User_Service.belongsTo(Service);
 User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
-db.sync({ });
-//force: true
+// db.sync({ });
+// force: true
 
 const usernameInDb = (username) => {
   User.findOne({ user_name: username });
 };
-
 
 db
   .authenticate()
@@ -196,20 +195,32 @@ const userServiceHelperFunc = (req, cb) => {
 // let services = (`SELECT * FROM services WHERE id_service=${servicesID}`);
 // let services = (services.findAll({where: {id_services="`${servicesID}`"}}))
 
-// const getUserInfo = (req, callback) => {
-//   const username = req.body.username;
-//   const userid = User.findAll({ where: { user_name: `${username}` } });
-//   const servicesID = User_Service.findOne({ where: { UserIdUser: `${userid}` }, attributes: ['id_user_service', ['ServiceIdService', 'UserIdUser']] });
-//   const services = (Service.findAll({ where: { id_service: `${servicesID}` } }));
-//   console.log(services);
-// };
+const getUserInfo = (username, cb) => {
+  console.log(username, 'username in db');
+  // User.findAll({
+  //   where: {
+  //     user_name: username,
+  //   },
+  //   attributes: ['id_user'],
+  // })
+  //   .then((userid) => {
+  //     console.log(userid);
+  //   })
+  //   .catch((err) => {
+  //     console.error(err);
+  //   });
+  // console.log(userid, 'userid');
+  // const servicesID = User_Service.findOne({ where: { UserIdUser: `${userid}` }, attributes: ['id_user_service', ['ServiceIdService', 'UserIdUser']] });
+  // const services = (Service.findAll({ where: { id_service: `${servicesID}` } }));
+  // console.log(services, 'services');
+};
 
 module.exports = {
   User,
   Service,
   usernameInDb,
   userServiceHelperFunc,
-  // getUserInfo,
+  getUserInfo,
 };
 
 

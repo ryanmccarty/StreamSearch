@@ -38,8 +38,9 @@ angular.module('app')
     };
 
     this.getInfo = (username) => {
-      console.log(username);
-      $http.get('/profile-load', username)
+      $http.get('/profile', {
+        params: { username },
+      })
         .then((response) => {
           console.log(response.data, 'response from request for profile info');
         })
