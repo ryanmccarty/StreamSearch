@@ -127,7 +127,7 @@ Service.belongsToMany(User, { through: User_Service });
 
 db.sync({ force: true });
 
-const usernameInDb = function usernameInDb(username) {
+const usernameInDb = (username) => {
   User.findOne({ user_name: username });
 };
 
@@ -143,7 +143,7 @@ db
   .done();
 
 // Helper Function to populate service and user tables and join table///////////////////////////////
-const userServiceHelperFunc = (req) => {
+const userServiceHelperFunc = (req, cb) => {
   // Services //////////////////////////////
   const services = req.body.services;
   const crunchyroll = services.crunchyroll;
@@ -178,8 +178,12 @@ const userServiceHelperFunc = (req) => {
         service_primevideo: primevideo,
       }),
     ])).then(([user, streamingServices]) => {
-      console.log({ user, streamingServices });
       user.addService(streamingServices, { through: User_Service });
+      cb('success');
+    })
+    .catch((err) => {
+      console.error(err);
+      cb('that username is already taken!');
     });
 };
 

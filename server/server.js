@@ -5,15 +5,14 @@ const session = require('express-session');
 
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
-const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
-const db = require('../database/index.js');
-const utellySample = require('../sampledata/utelly.json');
-const local = require('./passport');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const local = require('passport');
+const db = require('../database/index.js');
+const utellySample = require('../sampledata/utelly.json');
 const apis = require('./request');
 
 
@@ -78,7 +77,7 @@ passport.deserializeUser((id, callback) => {
 // this happens after a user is logged in
 app.get('/authrequired', (req, res) => {
   if (req.isAuthenticated()) {
-    res.send('you hit the authentication endpoint\n')
+    res.send('you hit the authentication endpoint\n');
   } else {
     res.redirect('/');
   }
@@ -89,7 +88,7 @@ app.get('/', (request, response) => {
   response.send(200);
 });
 
-//on login compare user data to login attempt
+// on login compare user data to login attempt
 app.post('/login', (req, res) => {
   passport.authenticate('local', (err, user, info) => {
     req.login(user, (error) => {
@@ -97,56 +96,25 @@ app.post('/login', (req, res) => {
     });
   })(req, res);
 
-  //if valid login, redirect to '/search'
-  //else keep at login
-
-})
+  // if valid login, redirect to '/search'
+  // else keep at login
+});
 
 app.get('/login', (req, res) => {
   console.log(req.sessionID);
   res.send('logged in');
-})
+});
 
 app.post('/signup', (req, res) => {
-  console.log(req.sessionID);
-  console.log(req.body);
-  //Services//////////////////////////////////////////////
-  let services = req.body.services;
-  const crunchyroll = services.crunchyroll;
-  const googleplay = services.googleplay;
-  const hulu = services.hulu;
-  const iTunes = services.iTunes;
-  const netflix = services.netflix;
-  const primevideo = services.primevideo;
-
-  db.Service.create({
-    service_crunchyroll: crunchyroll,
-    service_googleplay: googleplay,
-    service_hulu: hulu,
-    service_iTunes: iTunes,
-    service_netflix: netflix,
-    service_primevideo: primevideo
+  db.userServiceHelperFunc(req, (result) => {
+    if (result === 'success') {
+      res.status(201).send(`${req.body.username} succesfully registered!`);
+      // redirect to '/search'
+    } else {
+      res.status(400).send(result);
+    }
   });
-  //////////////////////////////////////////////////////////
-  //Users///////////////////////////////////////////////////
-  let username = req.body.username;
-  let country = req.body.country;
-  let fullname = req.body.fullname;
-  const salt = bcrypt.genSaltSync(8);
-  const hashPassword = bcrypt.hashSync(req.body.password, salt);
-
-  db.User.create({
-    user_name: username,
-    user_fullname: fullname,
-    hashed_password: hashPassword,
-    user_country: country,
-  });
-  //////////////////////////////////////////////////////////
-
-  //redirect to '/search'
-  res.send('server recieved signup');
 });
-// SignUp End /////////////////////////////////////////////////////////////
 
 
 // routes the user to their profile and queries database for their info
@@ -189,5 +157,4 @@ app.get('/logout', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}!`);
-})
-
+});
