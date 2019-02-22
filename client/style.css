@@ -84,7 +84,7 @@
 .collapsible-header {
   position: absolute;
   top: 70%;
-  left: 80%
+  left: 80%;
 }
 
 .collapsible-body {
@@ -94,7 +94,7 @@
 }
 
 .collapsible{
-  color: black;
+  display:none;
 }
 
 /* .login-button {
