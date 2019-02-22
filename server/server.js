@@ -109,8 +109,8 @@ app.post('/search', async (req, res) => {
     if (titles.includes(b.title) && b.vote_count) {
       a.push({
         title: b.title,
-        poster: `http://image.tmdb.org/t/p/w500/${b.poster_path}`,
-        backdrop: `http://image.tmdb.org/t/p/w500/${b.backdrop_path}`,
+        poster: `http://image.tmdb.org/t/p/w780/${b.poster_path}`,
+        backdrop: `http://image.tmdb.org/t/p/w780/${b.backdrop_path}`,
         overview: b.overview,
         services: utelly.results[titles.indexOf(b.title)].locations,
       });
