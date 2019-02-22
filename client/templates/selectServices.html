@@ -6,6 +6,7 @@
     </div>
     <div class="collapsible-body">
       <img ng-repeat="(service, hasService) in $ctrl.serviceList" service="service" height=100 width=100
+        class="icon"
         ng-src="assets/serviceLogos/{{service}}.png"
         ng-click="$ctrl.click(service)"
         ng-class="{'selected-service': $ctrl.serviceList[service]}"
