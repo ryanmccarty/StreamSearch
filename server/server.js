@@ -7,7 +7,6 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const db = require('../database/index.js');
-const utellySample = require('../sampledata/utelly.json');
 const apis = require('./request');
 
 app.use(bodyParser.json());
@@ -43,7 +42,7 @@ app.post('/login', (req, res) => {
           res.status(201).send('logged in!');
         }
       });
-      
+
       // validate credentials
       // if valid login, redirect to '/search'
       // else keep at login
@@ -93,8 +92,25 @@ app.get('/', (req, res) => {
 });
 
 // get request sent when search is performed
-app.post('/search', (req, res) => {
-  // should call axios requests
+app.post('/search', async (req, res) => {
+  const utelly = await apis.utellyGet(req, res);
+  const kitsu = await apis.anime(req, res);
+  const movieDB = await apis.movies(req, res);
+  const titles = utelly.results.map(movie => movie.name);
+  const movies = movieDB.results.reduce((a, b) => {
+    if (titles.includes(b.title) && b.vote_count) {
+      a.push({
+        title: b.title,
+        poster: `http://image.tmdb.org/t/p/w500/${b.poster_path}`,
+        backdrop: `http://image.tmdb.org/t/p/w500/${b.backdrop_path}`,
+        overview: b.overview,
+        services: utelly.results[titles.indexOf(b.title)].locations,
+      });
+      return a;
+    }
+    return a;
+  }, []);
+  res.send(movies);
   // should send results to client and database
   console.log(req.body, 'server received this search request');
   apis.imdb(req, res);

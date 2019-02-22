@@ -1,40 +1,49 @@
 const axios = require('axios');
 const bluebird = require('bluebird');
 const posters = require('../sampledata/OMDB');
+const anime = require('../sampledata/kitsu');
+const movies = require('../sampledata/movieDB');
+const utelly = require('../sampledata/utelly');
 
 const utellyGet = ({ query }, res) => {
-  axios({
-    method: 'GET',
-    url: `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${query.title}&country=${query.location}`,
-    header: { 'X-RapidAPI-Key': process.env.UTELLY },
-  });
+  // axios({
+  //   method: 'GET',
+  //   url: `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${query.title}&country=${query.location}`,
+  //   header: { 'X-RapidAPI-Key': process.env.UTELLY },
+  // });
+  return utelly;
 };
+
+module.exports.utellyGet = utellyGet;
 
 
 const movieDbGet = ({ query }, res) => {
-  if (query.lookup === 'Discover') {
-    axios({
-      method: 'GET',
-      url: `https://api.themoviedb.org/3/discover/${query.type}`,
-      params: {
-        api_key: process.env.MDB,
-        sort_by: query.sort_by,
-        with_genres: query.with_genres,
-      },
-    });
-  } else {
-    axios({
-      method: 'GET',
-      url: `https://api.themoviedb.org/3/search/${query.type}`,
-      params: {
-        api_key: process.env.MDB,
-        query: query.query,
-        sort_by: query.sort_by,
-        with_genres: query.with_genres,
-      },
-    });
-  }
+  // if (query.lookup === 'Discover') {
+  //   axios({
+  //     method: 'GET',
+  //     url: `https://api.themoviedb.org/3/discover/${query.type}`,
+  //     params: {
+  //       api_key: process.env.MDB,
+  //       sort_by: query.sort_by,
+  //       with_genres: query.with_genres,
+  //     },
+  //   });
+  // } else {
+  //   axios({
+  //     method: 'GET',
+  //     url: `https://api.themoviedb.org/3/search/${query.type}`,
+  //     params: {
+  //       api_key: process.env.MDB,
+  //       query: query.query,
+  //       sort_by: query.sort_by,
+  //       with_genres: query.with_genres,
+  //     },
+  //   });
+  // }
+  return movies;
 };
+
+module.exports.movies = movieDbGet;
 
 const IMDB = ({ query }, res) => {
   // axios({
@@ -46,29 +55,32 @@ const IMDB = ({ query }, res) => {
   //     type: query.type,
   //   },
   // });
-  res.send(posters.data.Search);
+  return posters.data.Search;
 };
 module.exports.imdb = IMDB;
 
 const animeGet = ({ query }, res) => {
-  axios({
-    method: 'get',
-    url: `https://kitsu.io/api/edge/anime?filter[${query.filterBy}]=${query.term}&filter[streamers]=crunchyroll`,
-    headers: {
-      Accept: 'application/vnd.api+json',
-      'Content-Type': 'application/vnd.api+json',
-    },
-  });
+  // axios({
+  //   method: 'get',
+  //   url: `https://kitsu.io/api/edge/anime?filter[${query.filterBy}]=${query.term}&filter[streamers]=crunchyroll`,
+  //   headers: {
+  //     Accept: 'application/vnd.api+json',
+  //     'Content-Type': 'application/vnd.api+json',
+  //   },
+  // });
+  return anime;
 };
+
+module.exports.anime = animeGet;
 
 const genres = [
   {
-    'id': 28,
-    'name': 'Action',
+    id: 28,
+    name: 'Action',
   },
   {
-    'id': 12,
-    'name': 'Adventure',
+    id: 12,
+    name: 'Adventure',
   },
   {
     id: 16,
@@ -76,38 +88,38 @@ const genres = [
   },
   {
     id: 35,
-    'name': 'Comedy',
+    name: 'Comedy',
   },
   {
     id: 80,
-    'name': 'Crime',
+    name: 'Crime',
   },
   {
-    'id': 99,
+    id: 99,
     name: 'Documentary',
   },
   {
     id: 18,
-    'name': 'Drama',
+    name: 'Drama',
   },
   {
     id: 10751,
-    'name': 'Family',
+    name: 'Family',
   },
   {
-    'id': 14,
+    id: 14,
     name: 'Fantasy',
   },
   {
-    'id': 36,
+    id: 36,
     name: 'History',
   },
   {
     id: 27,
-    'name': 'Horror',
+    name: 'Horror',
   },
   {
-    'id': 10402,
+    id: 10402,
     name: 'Music',
   },
   {
@@ -115,7 +127,7 @@ const genres = [
     name: 'Mystery',
   },
   {
-    'id': 10749,
+    id: 10749,
     name: 'Romance',
   },
   {
@@ -124,10 +136,10 @@ const genres = [
   },
   {
     id: 10770,
-    'name': 'TV Movie',
+    name: 'TV Movie',
   },
   {
-    'id': 53,
+    id: 53,
     name: 'Thriller',
   },
   {
@@ -136,6 +148,6 @@ const genres = [
   },
   {
     id: 37,
-    'name': 'Western',
+    name: 'Western',
   },
 ];

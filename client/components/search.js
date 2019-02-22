@@ -1,24 +1,24 @@
 const data = {
   Search: [
     {
-      Title: '',
-      Poster: '',
+      title: '',
+      poster: '',
     },
     {
-      Title: '',
-      Poster: '',
+      title: '',
+      poster: '',
     },
     {
-      Title: '',
-      Poster: '',
+      title: '',
+      poster: '',
     },
     {
-      Title: '',
-      Poster: '',
+      title: '',
+      poster: '',
     },
     {
-      Title: '',
-      Poster: '',
+      title: '',
+      poster: '',
     },
   ],
 };
@@ -32,6 +32,7 @@ angular.module('app')
       M.AutoInit();
       this.data = data.Search;
       this.setData = (data) => {
+        console.log(data);
         this.data = data.data;
         M.AutoInit();
       };
