@@ -27,7 +27,12 @@ angular.module('app')
     };
 
     this.search = (query, callback) => {
-      $http.post('/search', query)
+      console.log(query);
+      $http({
+        url: '/search',
+        params: query,
+        method: 'GET',
+      })
         .then(callback)
         .catch(callback);
     };
