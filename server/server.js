@@ -48,19 +48,19 @@ app.post('/login', (req, res) => {
       // else keep at login
     });
 });
-
-app.post('/profile-load', (req, res) => {
-  console.log(req, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-  console.log(res, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-  db.getUserInfo(req, (result) => {
-    if (result === 'success') {
-      res.status(201).send(`${req.body.username} has their information loaded`);
-    } else {
-      res.status(400).send(result);
-    }
-  });
-});
 // LoginEnd //////////////////////////////////////////////////////////////////////////////
+
+// Get User Profile information /////////////////////////////////////////////////////////////////
+app.get('/profile-load', (req, res) => {
+  // db.getUserInfo(req, (result) => {
+  //   if (result === 'success') {
+  //     res.status(201).send(`${req.body.username} has their information loaded`);
+  //   } else {
+  //     res.status(400).send(result);
+  //   }
+  // });
+});
+// Get User Profile information End//////////////////////////////////////////////////////////////
 
 // SignUp ////////////////////////////////////////////////////////////////
 app.post('/signup', (req, res) => {

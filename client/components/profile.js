@@ -4,8 +4,8 @@ angular.module('app')
       path: '<',
     },
     controller(Serve) {
-      this.username = 'kc';
-      Serve.getInfo(this.username);
+      // this.username = 'kc';
+      // Serve.getInfo(this.username);
     },
     templateUrl: '/templates/profile.html',
   });
