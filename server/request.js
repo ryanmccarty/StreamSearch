@@ -28,7 +28,7 @@ const movieDbGet = ({ searchTerm, type }) => {
   //     },
   //   });
   // }
-  // return movies;
+  return movies;
 };
 
 module.exports.movies = movieDbGet;
