@@ -42,7 +42,7 @@ angular.module('app')
         params: { username },
       })
         .then((response) => {
-          console.log(response.data, 'response from request for profile info');
+          console.log(response, 'response from request for profile info');
         })
         .catch((error) => {
           console.error(error);

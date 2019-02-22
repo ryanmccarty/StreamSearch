@@ -188,29 +188,23 @@ const userServiceHelperFunc = (req, cb) => {
     });
 };
 
-// let userid = (`SELECT id_user FROM users WHERE user_name="${username}"` );
-// let userid = (users.findAll({where: {user_name="`${username}`"}}));
-// let servicesID = (`SELECT ServiceIdService FROM user_services WHERE UserIdUser ="${userid}" `);
-// let servicesID = user_services.findOne({where:{UserIdUser="`${userid}"}, attributes:[id_user_services,[ServiceIdService, UserIdUser]]})
-// let services = (`SELECT * FROM services WHERE id_service=${servicesID}`);
-// let services = (services.findAll({where: {id_services="`${servicesID}`"}}))
-
-const getUserInfo = (username, cb) => {
-  User.findOne({
-    where: {
-      user_name: username,
-    },
-  })
+const getUserServices = (username, cb) => {
+  User.findOne({ where: { user_name: username } })
     .then((user) => {
-      console.log(user);
+      User_Service.findOne({
+        where: { UserIdUser: user.id_user },
+        attributes: ['ServiceIdService'],
+      })
+        .then((uService) => {
+          return Service.findOne({ where: { id_service: uService.ServiceIdService } });
+        })
+        .then((service) => {
+          cb(service.dataValues);
+        });
     })
     .catch((err) => {
       console.error(err);
     });
-  // console.log(userid, 'userid');
-  // const servicesID = User_Service.findOne({ where: { UserIdUser: `${userid}` }, attributes: ['id_user_service', ['ServiceIdService', 'UserIdUser']] });
-  // const services = (Service.findAll({ where: { id_service: `${servicesID}` } }));
-  // console.log(services, 'services');
 };
 
 module.exports = {
@@ -218,7 +212,7 @@ module.exports = {
   Service,
   usernameInDb,
   userServiceHelperFunc,
-  getUserInfo,
+  getUserServices,
 };
 
 

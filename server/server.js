@@ -54,12 +54,8 @@ app.post('/login', (req, res) => {
 // Get User Profile information /////////////////////////////////////////////////////////////////
 app.get('/profile/:username', (req, res) => {
   const { username } = req.query;
-  db.getUserInfo(username, (result) => {
-    if (result === 'success') {
-      res.status(200).send(`here is ${username}'s profile info`);
-    } else {
-      res.status(400).send(result);
-    }
+  db.getUserServices(username, (result) => {
+    res.status(200).send(result);
   });
 });
 // Get User Profile information End//////////////////////////////////////////////////////////////
