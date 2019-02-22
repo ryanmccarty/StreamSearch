@@ -14,15 +14,15 @@ angular.module('app')
         });
     };
 
-    this.signup = (username, fullname, password, country, services) => {
+    this.signup = (username, fullname, password, country, services, cb) => {
       $http.post('/signup', {
         username, fullname, password, country, services,
       })
         .then((response) => {
-          console.log(response.data);
+          cb(response.data);
         })
         .catch((error) => {
-          alert(error.data);
+          cb(error.data);
         });
     };
 

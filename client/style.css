@@ -70,6 +70,14 @@
   /* transform: translate(-50%, -50%); */
 }
 
+.centered-text-alert {
+  background-color: whitesmoke;
+  position: absolute;
+  top: 35.5%;
+  left: 35%;
+  /* transform: translate(-50%, -50%); */
+}
+
 .centered-text-password {
   position: absolute;
   top: 40%;
