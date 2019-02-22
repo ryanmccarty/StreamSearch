@@ -116,8 +116,8 @@
   font-size: 1.0rem;
   color: black;
   position: absolute;
-  top: 65%;
-  left: 45%;
+  top: 63%;
+  left: 43%;
 }
 
 .label2 {
@@ -127,7 +127,7 @@
 
 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
   background-color: black;
-  border: gold;
+  border: black;
 }
 
 [type="radio"]:not(:checked)+span, [type="radio"]:checked+span {
@@ -142,6 +142,12 @@
 
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
   font-size: 25px;
+}
+
+.btn-large {
+  position: absolute;
+  top: 55%;
+  left: 45%;
 }
 /* .login-button {
   color: #C59942;
