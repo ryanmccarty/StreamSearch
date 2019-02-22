@@ -5,36 +5,34 @@ const session = require('express-session');
 
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
+<<<<<<< HEAD
 const FileStore = require('session-file-store')(session);
 const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const local = require('passport');
+=======
+const bcrypt = require('bcrypt');
+>>>>>>> 2ccc14d53861cd7e1580e63a62661a66b4b076f4
 const db = require('../database/index.js');
 const utellySample = require('../sampledata/utelly.json');
 const apis = require('./request');
 
-
-// add and configure middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client'));
 app.use(express.static('node_modules'));
 
-// creates the sessionID
+// Session/////////////////////
 app.use(session({
-  genid: (request) => {
-    console.log('inside session');
-    console.log(request.sessionID);
-    return uuid();
-  },
-  store: new FileStore(),
-  secret: 'land shark kitten',
+  secret: 'cain is sour never sweet',
   resave: false,
   saveUninitialized: true,
+  cookie: { secure: true },
 }));
+// Session End /////////////////
 
+<<<<<<< HEAD
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -89,11 +87,30 @@ app.get('/', (request, response) => {
 });
 
 // on login compare user data to login attempt
+=======
+
+// Login ////////////////////////////////////////////////////////////////////////////////
+>>>>>>> 2ccc14d53861cd7e1580e63a62661a66b4b076f4
 app.post('/login', (req, res) => {
-  passport.authenticate('local', (err, user, info) => {
-    req.login(user, (error) => {
-      res.send('you were logged in');
+  // res.redirect('/search')
+
+  console.log(req.post, 'made it to login');
+  db.usernameInDb(req.body.username)
+    .then((user) => {
+      bcrypt.compare(req.body.password, user.hashed_password, (error, response) => {
+        if (error) {
+          return (error);
+        }
+        return req.session.regenerate(() => {
+          req.session.user = req.body.username;
+        });
+      });
+      res.send('cool');
+      // validate credentials
+      // if valid login, redirect to '/search'
+      // else keep at login
     });
+<<<<<<< HEAD
   })(req, res);
 
   // if valid login, redirect to '/search'
@@ -104,8 +121,18 @@ app.get('/login', (req, res) => {
   console.log(req.sessionID);
   res.send('logged in');
 });
+=======
+});
 
+app.get('/login', (req, res) => {
+>>>>>>> 2ccc14d53861cd7e1580e63a62661a66b4b076f4
+
+});
+// LoginEnd //////////////////////////////////////////////////////////////////////////////
+
+// SignUp ////////////////////////////////////////////////////////////////
 app.post('/signup', (req, res) => {
+<<<<<<< HEAD
   db.userServiceHelperFunc(req, (result) => {
     if (result === 'success') {
       res.status(201).send(`${req.body.username} succesfully registered!`);
@@ -114,6 +141,14 @@ app.post('/signup', (req, res) => {
       res.status(400).send(result);
     }
   });
+=======
+  db.userServiceHelperFunc(req)
+    .then((response) => {
+      console.log(response);
+    });
+  // redirect to '/search'
+  res.send('server recieved signup');
+>>>>>>> 2ccc14d53861cd7e1580e63a62661a66b4b076f4
 });
 
 
@@ -154,6 +189,7 @@ app.get('/logout', (req, res) => {
   // close user session and delete cookies
   // redirect to '/login'
 });
+
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}!`);
