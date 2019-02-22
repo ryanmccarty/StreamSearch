@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const db = require('../database/index.js');
+const helpers = require('./helpers');
 
 
 app.use(bodyParser.json());
@@ -94,6 +95,7 @@ app.get('/', (req, res) => {
 // get request sent when search is performed
 app.get('/search', (req, res) => {
   console.log(req);
+  helpers.getMovies(req.query);
   // res.send(movies);
   // should send results to client and database
   console.log(req.body, 'server received this search request');
