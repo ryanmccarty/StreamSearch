@@ -81,6 +81,13 @@
   color: white;
 }
 
+.signin-header {
+  position: absolute;
+  top: 3%;
+  left: 30%;
+  color: white;
+}
+
 .collapsible-header {
   position: absolute;
   top: 70%;
@@ -99,7 +106,7 @@
 }
 
 .group2 {
-  
+  color: gold;
 }
 
 /* .login-button {
