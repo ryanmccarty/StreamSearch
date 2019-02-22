@@ -1,41 +1,46 @@
 const axios = require('axios');
 const bluebird = require('bluebird');
 const posters = require('../sampledata/OMDB');
+const anime = require('../sampledata/kitsu');
+const movies = require('../sampledata/movieDB');
+const utelly = require('../sampledata/utelly');
 
 const utellyGet = ({ query }, res) => {
-  axios({
-    method: 'GET',
-    url: `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${query.title}&country=${query.location}`,
-    header: { 'X-RapidAPI-Key': process.env.UTELLY },
-  });
+  // axios({
+  //   method: 'GET',
+  //   url: `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${query.title}&country=${query.location}`,
+  //   header: { 'X-RapidAPI-Key': process.env.UTELLY },
+  // });
+  res.send(utelly);
 };
 
 module.exports.utellyGet = utellyGet;
 
 
 const movieDbGet = ({ query }, res) => {
-  if (query.lookup === 'Discover') {
-    axios({
-      method: 'GET',
-      url: `https://api.themoviedb.org/3/discover/${query.type}`,
-      params: {
-        api_key: process.env.MDB,
-        sort_by: query.sort_by,
-        with_genres: query.with_genres,
-      },
-    });
-  } else {
-    axios({
-      method: 'GET',
-      url: `https://api.themoviedb.org/3/search/${query.type}`,
-      params: {
-        api_key: process.env.MDB,
-        query: query.query,
-        sort_by: query.sort_by,
-        with_genres: query.with_genres,
-      },
-    });
-  }
+  // if (query.lookup === 'Discover') {
+  //   axios({
+  //     method: 'GET',
+  //     url: `https://api.themoviedb.org/3/discover/${query.type}`,
+  //     params: {
+  //       api_key: process.env.MDB,
+  //       sort_by: query.sort_by,
+  //       with_genres: query.with_genres,
+  //     },
+  //   });
+  // } else {
+  //   axios({
+  //     method: 'GET',
+  //     url: `https://api.themoviedb.org/3/search/${query.type}`,
+  //     params: {
+  //       api_key: process.env.MDB,
+  //       query: query.query,
+  //       sort_by: query.sort_by,
+  //       with_genres: query.with_genres,
+  //     },
+  //   });
+  // }
+  res.send(movies);
 };
 
 module.exports.movies = movieDbGet;
@@ -55,14 +60,15 @@ const IMDB = ({ query }, res) => {
 module.exports.imdb = IMDB;
 
 const animeGet = ({ query }, res) => {
-  axios({
-    method: 'get',
-    url: `https://kitsu.io/api/edge/anime?filter[${query.filterBy}]=${query.term}&filter[streamers]=crunchyroll`,
-    headers: {
-      Accept: 'application/vnd.api+json',
-      'Content-Type': 'application/vnd.api+json',
-    },
-  });
+  // axios({
+  //   method: 'get',
+  //   url: `https://kitsu.io/api/edge/anime?filter[${query.filterBy}]=${query.term}&filter[streamers]=crunchyroll`,
+  //   headers: {
+  //     Accept: 'application/vnd.api+json',
+  //     'Content-Type': 'application/vnd.api+json',
+  //   },
+  // });
+  res.send(anime);
 };
 
 module.exports.anime = animeGet;
