@@ -92,10 +92,10 @@ app.get('/', (req, res) => {
 });
 
 // get request sent when search is performed
-app.post('/search', (req, res) => {
-  const utelly = apis.utellyGet(req, res);
-  const kitsu = apis.anime(req, res);
-  const movieDB = apis.movies(req, res);
+app.post('/search', async (req, res) => {
+  const utelly = await apis.utellyGet(req, res);
+  const kitsu = await apis.anime(req, res);
+  const movieDB = await apis.movies(req, res);
   const titles = utelly.results.map(movie => movie.name);
   const movies = movieDB.results.reduce((a, b) => {
     if (titles.includes(b.title) && b.vote_count) {

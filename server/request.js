@@ -11,7 +11,7 @@ const utellyGet = ({ query }, res) => {
   //   url: `https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${query.title}&country=${query.location}`,
   //   header: { 'X-RapidAPI-Key': process.env.UTELLY },
   // });
-  res.send(utelly);
+  return utelly;
 };
 
 module.exports.utellyGet = utellyGet;
@@ -40,7 +40,7 @@ const movieDbGet = ({ query }, res) => {
   //     },
   //   });
   // }
-  res.send(movies);
+  return movies;
 };
 
 module.exports.movies = movieDbGet;
@@ -68,7 +68,7 @@ const animeGet = ({ query }, res) => {
   //     'Content-Type': 'application/vnd.api+json',
   //   },
   // });
-  res.send(anime);
+  return anime;
 };
 
 module.exports.anime = animeGet;
