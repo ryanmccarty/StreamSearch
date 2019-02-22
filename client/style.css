@@ -24,8 +24,8 @@
 }
 
 .login-signup-img{
-  top: 15%;
-  left: 22%;
+  top: 5%;
+  left: 27%;
   height: 500px;
   width: relative;
   position: absolute;
@@ -33,8 +33,8 @@
 }
 
 .login-signup-img-two{
-  top: 25%;
-  left: 25%;
+  top: 15%;
+  left: 30%;
   position: absolute;
   height: 400px;
   opacity: 0.80;
@@ -44,25 +44,50 @@
 .centered-text-username {
   background-color: whitesmoke;
   position: absolute;
-  top: 40%;
-  left: 30%;
+  top: 30%;
+  left: 35%;
   /* transform: translate(-50%, -50%); */
 }
 
 .centered-text-password {
   position: absolute;
+  top: 40%;
+  left: 35%;
+  /* transform: translate(-50%, -50%); */
+}
+
+.centered-text-3 {
+  position: absolute;
   top: 50%;
-  left: 30%;
+  left: 35%;
+  /* transform: translate(-50%, -50%); */
+}
+
+.centered-text-4 {
+  position: absolute;
+  top: 60%;
+  left: 35%;
   /* transform: translate(-50%, -50%); */
 }
 
 .login-header {
   position: absolute;
-  top: 13%;
-  left: 25%;
+  top: 3%;
+  left: 30%;
   color: white;
 }
 
+.collapsible-header {
+  position: absolute;
+  top: 70%;
+  left: 80%
+}
+
+.collapsible-body {
+  position: absolute;
+  top: 75%;
+  left: 20%
+}
 /* .login-button {
   color: #C59942;
 } */
