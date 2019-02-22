@@ -58,10 +58,13 @@ app.get('/login', (req, res) => {
 // SignUp ////////////////////////////////////////////////////////////////
 app.post('/signup', (req, res) => {
   db.userServiceHelperFunc(req, (result) => {
-    console.log(result);
+    if (result === 'success') {
+      res.status(201).send(`${req.body.username} succesfully registered!`);
+      // redirect to '/search'
+    } else {
+      res.status(400).send(result);
+    }
   });
-  // redirect to '/search'
-  res.send();
 });
 // SignUp End /////////////////////////////////////////////////////////////
 

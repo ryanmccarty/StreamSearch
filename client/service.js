@@ -19,11 +19,10 @@ angular.module('app')
         username, fullname, password, country, services,
       })
         .then((response) => {
-          console.log(response.data, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-          console.log('signup request worked');
+          console.log(response.data);
         })
         .catch((error) => {
-          console.error(error);
+          alert(error.data);
         });
     };
 
