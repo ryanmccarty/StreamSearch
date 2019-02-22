@@ -18,7 +18,7 @@ let getMovies = async (query) => {
     }
     return a;
   }, []);
-  
+  return movies;
 };
 
 module.exports.getMovies = getMovies;
