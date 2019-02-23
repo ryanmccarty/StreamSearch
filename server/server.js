@@ -105,6 +105,11 @@ app.get('/logout', (req, res) => {
   // redirect to '/login'
 });
 
+app.post('/favoritedMovie', (req, res) => {
+  console.log(req.body);
+  res.send('cool');
+});
+
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}!`);

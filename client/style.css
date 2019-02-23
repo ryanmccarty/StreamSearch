@@ -37,11 +37,10 @@
 
 .carousel {
   overflow: visible;
-  position: absolute;
+  position: relative;
   height: 100%;
-  top: 10%;
-  left: 6%; 
-  /* Cannot be any less than 6%, I got it down to 4 once, but not twice -K */
+  top: 5%;
+  left: 3%; 
 }
 
 .login-signup-img{
@@ -191,4 +190,8 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
 
 .group1 {
   left: 1.5em;
+}
+
+.user-view {
+  background-image: url("assets/serviceLogos/hamburger-tab-background.png");
 }
