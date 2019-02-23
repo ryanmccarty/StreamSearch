@@ -70,9 +70,10 @@ const Movie_Service = db.define('Movie_Service', {
     },
   },
 });
-
-
-
+Movie_Service.belongsTo(Service);
+Movie_Service.belongsTo(Movie);
+Movie.belongsToMany(Service, { through: Movie_Service });
+Service.belongsToMany(Movie, { through: Movie_Service });
 
 
 const User_Movie = db.define('User_Movie', {
@@ -96,6 +97,11 @@ const User_Movie = db.define('User_Movie', {
     },
   },
 });
+User_Movie.belongsTo(User);
+User_Movie.belongsTo(Movie);
+User.belongsToMany(Service, { through: User_Movie });
+Service.belongsToMany(User, { through: User_Movie });
+
 
 const User_Service = db.define('User_Service', {
   id_user_service: {
@@ -118,12 +124,13 @@ const User_Service = db.define('User_Service', {
     },
   },
 });
+User_Service.belongsTo(User);
+User_Service.belongsTo(Service);
+User.belongsToMany(Service, { through: User_Service });
+Service.belongsToMany(User, { through: User_Service });
 
-
-
-
-
-
+// db.sync({ });
+// force: true
 
 const usernameInDb = (username) => {
   User.findOne({ user_name: username });
@@ -191,7 +198,7 @@ const getUserServices = (username, cb) => {
       User_Service.findOne({
         where: { UserIdUser: user.id_user },
         attributes: ['ServiceIdService'],
-      }) 
+      })
         .then((uService) => Service.findOne({ where: { id_service: uService.ServiceIdService } }))
         .then((service) => {
           cb(service.dataValues);
@@ -230,8 +237,8 @@ const saveMovieHelperFunc = (req, callback) => {
       service_netflix: netflix,
       service_primevideo: primevideo,
     }),
-  ]).then(([movie1, services1]) => {
-    movie1.addMovieService(services1, { through: Movie_Service });
+  ]).then(([movie, services]) => {
+    movie.addService(services, { through: Movie_Service })
     callback('success');
   }).catch((err) => {
     callback('error in DB line 232');
