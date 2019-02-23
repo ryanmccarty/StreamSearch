@@ -201,3 +201,9 @@ a {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+p.description.ng-binding {
+  width: 300px;
+  position: absolute;
+  color: ivory;
+}
