@@ -92,7 +92,7 @@ app.get('/', (req, res) => {
 // get request sent when search is performed
 app.get('/search', (req, res) => {
   let movies = helpers.getMovies(req.query);
-  console.log(movies);
+  // console.log(movies);
   movies.then(data => res.send(data));
   // should send results to client and database
   console.log(req.body, 'server received this search request');

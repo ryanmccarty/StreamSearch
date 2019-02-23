@@ -56,12 +56,30 @@ angular.module('app')
       this.setTarget = (target) => {
         this.target = target;
       };
+
+      this.services = () => {
+        const options = {
+          crunchyroll: false,
+          googleplay: false,
+          hulu: false,
+          iTunes: false,
+          netflix: false,
+          primevideo: false,
+        };
+        this.data[this.target].services.forEach((service) => {
+          options[service.display_name] = true;
+        });
+        return options;
+      };
+
       this.favoritedMovie = () => {
+        console.log(this.services(), '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         const resultSrc = this.data[this.target].poster;
         const resultMovieName = this.data[this.target].title;
         const favorite = true;
         const watchLater = false;
-        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater);
+        const services = this.services();
+        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services);
       };
     },
     templateUrl: 'templates/search.html',

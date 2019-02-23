@@ -43,9 +43,9 @@ angular.module('app')
     //     .then(console.log('cool'))
     //     .catch(console.log('error'));
     // };
-    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater) => {
+    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services) => {
       $http.post('/favoritedMovie', {
-        resultMovieName, resultSrc, favorite, watchLater,
+        resultMovieName, resultSrc, favorite, watchLater, services,
       })
         .then((response) => {
           console.log(response, `${resultMovieName} was saved to the DB `);
