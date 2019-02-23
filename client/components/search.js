@@ -32,13 +32,9 @@ angular.module('app')
     controller(Serve) {
       M.AutoInit();
       this.data = data.Search;
+      this.targ = '0';
       this.target = '0';
       this.expanded = false;
-      this.falsePositive = () => {
-        if (this.expanded === true) {
-          this.expanded = false;
-        }
-      };
       this.isExpanded = () => {
         this.expanded = !this.expanded;
       };
@@ -54,11 +50,13 @@ angular.module('app')
       };
       this.setData = this.setData.bind(this);
       this.setTarget = (target) => {
-        this.target = target;
+        let that = this;
+        this.targ = target;
+        setTimeout(() => { that.target = target }, 1000);
       };
       this.favoritedMovie = () => {
-        const resultSrc = this.data[this.target].poster;
-        const resultMovieName = this.data[this.target].title;
+        const resultSrc = this.data[this.targ].poster;
+        const resultMovieName = this.data[this.targ].title;
         const favorite = true;
         const watchLater = false;
         Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater);
