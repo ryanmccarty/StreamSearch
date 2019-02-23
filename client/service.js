@@ -37,10 +37,16 @@ angular.module('app')
         .catch(callback);
     };
 
-    // this.getInfo = (username) => {
-    //   console.log(username);
-    //   $http.get('/profile-load', username)
-    //     .then(console.log('cool'))
-    //     .catch(console.log('error'));
-    // };
+    this.getInfo = (username, cb) => {
+      $http.get(`/profile/${username}`, {
+        params: { username },
+      })
+        .then((response) => {
+          cb(response.data);
+          console.log(response, 'response from request for profile info');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
   });

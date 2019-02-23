@@ -125,13 +125,12 @@ User_Service.belongsTo(Service);
 User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
-db.sync({ });
-//force: true
+// db.sync({ });
+// force: true
 
 const usernameInDb = (username) => {
   User.findOne({ user_name: username });
 };
-
 
 db
   .authenticate()
@@ -189,27 +188,31 @@ const userServiceHelperFunc = (req, cb) => {
     });
 };
 
-// let userid = (`SELECT id_user FROM users WHERE user_name="${username}"` );
-// let userid = (users.findAll({where: {user_name="`${username}`"}}));
-// let servicesID = (`SELECT ServiceIdService FROM user_services WHERE UserIdUser ="${userid}" `);
-// let servicesID = user_services.findOne({where:{UserIdUser="`${userid}"}, attributes:[id_user_services,[ServiceIdService, UserIdUser]]})
-// let services = (`SELECT * FROM services WHERE id_service=${servicesID}`);
-// let services = (services.findAll({where: {id_services="`${servicesID}`"}}))
-
-// const getUserInfo = (req, callback) => {
-//   const username = req.body.username;
-//   const userid = User.findAll({ where: { user_name: `${username}` } });
-//   const servicesID = User_Service.findOne({ where: { UserIdUser: `${userid}` }, attributes: ['id_user_service', ['ServiceIdService', 'UserIdUser']] });
-//   const services = (Service.findAll({ where: { id_service: `${servicesID}` } }));
-//   console.log(services);
-// };
+const getUserServices = (username, cb) => {
+  User.findOne({ where: { user_name: username } })
+    .then((user) => {
+      User_Service.findOne({
+        where: { UserIdUser: user.id_user },
+        attributes: ['ServiceIdService'],
+      })
+        .then((uService) => {
+          return Service.findOne({ where: { id_service: uService.ServiceIdService } });
+        })
+        .then((service) => {
+          cb(service.dataValues);
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
 module.exports = {
   User,
   Service,
   usernameInDb,
   userServiceHelperFunc,
-  // getUserInfo,
+  getUserServices,
 };
 
 
