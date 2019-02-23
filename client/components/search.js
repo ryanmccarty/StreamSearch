@@ -81,6 +81,16 @@ angular.module('app')
         const services = this.services();
         Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services);
       };
+
+      this.watchLaterMovie = () => {
+        console.log(this.services(), '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        const resultSrc = this.data[this.target].poster;
+        const resultMovieName = this.data[this.target].title;
+        const favorite = false;
+        const watchLater = true;
+        const services = this.services();
+        Serve.watchLaterMovie(resultMovieName, resultSrc, favorite, watchLater, services);
+      };
     },
     templateUrl: 'templates/search.html',
   });
