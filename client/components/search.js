@@ -67,7 +67,9 @@ angular.module('app')
           primevideo: false,
         };
         this.data[this.target].services.forEach((service) => {
-          options[service.display_name] = true;
+          if (Object.keys(options).includes(service.display_name)) {
+            options[service.display_name] = true;
+          }
         });
         return options;
       };
@@ -89,7 +91,7 @@ angular.module('app')
         const favorite = false;
         const watchLater = true;
         const services = this.services();
-        Serve.watchLaterMovie(resultMovieName, resultSrc, favorite, watchLater, services);
+        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services);
       };
     },
     templateUrl: 'templates/search.html',

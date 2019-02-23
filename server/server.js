@@ -62,6 +62,7 @@ app.get('/profile/:username', (req, res) => {
 
 // SignUp ////////////////////////////////////////////////////////////////
 app.post('/signup', (req, res) => {
+  console.log(req.body);
   db.userServiceHelperFunc(req, (result) => {
     if (result === 'success') {
       res.status(201).send(`${req.body.username} succesfully registered!`);
@@ -107,7 +108,13 @@ app.get('/logout', (req, res) => {
 
 app.post('/favoritedMovie', (req, res) => {
   console.log(req.body);
-  res.send('cool');
+  db.saveMovieHelperFunc(req, (response) => {
+    if (response === 'success') {
+      res.status(201).send(`${req.body.movie} was added to the DB`);
+    } else {
+      res.status(500).send('error line 116 server.js');
+    }
+  });
 });
 
 

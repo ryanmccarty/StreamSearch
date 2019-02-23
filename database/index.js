@@ -70,8 +70,9 @@ const Movie_Service = db.define('Movie_Service', {
     },
   },
 });
-Movie.belongsToMany(Service, { through: Movie_Service });
-Service.belongsToMany(Movie, { through: Movie_Service });
+
+
+
 
 
 const User_Movie = db.define('User_Movie', {
@@ -117,13 +118,12 @@ const User_Service = db.define('User_Service', {
     },
   },
 });
-User_Service.belongsTo(User);
-User_Service.belongsTo(Service);
-User.belongsToMany(Service, { through: User_Service });
-Service.belongsToMany(User, { through: User_Service });
 
-// db.sync({ });
-// force: true
+
+
+
+
+
 
 const usernameInDb = (username) => {
   User.findOne({ user_name: username });
@@ -191,10 +191,8 @@ const getUserServices = (username, cb) => {
       User_Service.findOne({
         where: { UserIdUser: user.id_user },
         attributes: ['ServiceIdService'],
-      })
-        .then((uService) => {
-          return Service.findOne({ where: { id_service: uService.ServiceIdService } });
-        })
+      }) 
+        .then((uService) => Service.findOne({ where: { id_service: uService.ServiceIdService } }))
         .then((service) => {
           cb(service.dataValues);
         });
@@ -207,19 +205,37 @@ const getUserServices = (username, cb) => {
 const saveMovieHelperFunc = (req, callback) => {
   const movie = req.body.resultMovieName;
   const src = req.body.resultSrc;
-  const favorited = req.body. favorite;
+  const favorited = req.body.favorite;
   const watchLater = req.body.watchLater;
+  const services = req.body.services;
+  const crunchyroll = services.crunchyroll;
+  const googleplay = services.googleplay;
+  const hulu = services.hulu;
+  const iTunes = services.iTunes;
+  const netflix = services.netflix;
+  const primevideo = services.primevideo;
 
-  Movie.create({
-    movie_title: movie,
-    box_art: src,
-    favorite: favorited,
-    watch_later: watchLater,
-  })
-    .then((movie) => {
-      callback('success');
-    })
-    .catch()
+  Promise.all([
+    Movie.create({
+      movie_title: movie,
+      box_art: src,
+      favorite: favorited,
+      watch_later: watchLater,
+    }),
+    Service.create({
+      service_crunchyroll: crunchyroll,
+      service_googleplay: googleplay,
+      service_hulu: hulu,
+      service_iTunes: iTunes,
+      service_netflix: netflix,
+      service_primevideo: primevideo,
+    }),
+  ]).then(([movie1, services1]) => {
+    movie1.addMovieService(services1, { through: Movie_Service });
+    callback('success');
+  }).catch((err) => {
+    callback('error in DB line 232');
+  });
 };
 
 module.exports = {
@@ -228,6 +244,7 @@ module.exports = {
   usernameInDb,
   userServiceHelperFunc,
   getUserServices,
+  saveMovieHelperFunc,
 };
 
 

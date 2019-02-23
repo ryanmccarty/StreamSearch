@@ -43,15 +43,15 @@ angular.module('app')
     //     .then(console.log('cool'))
     //     .catch(console.log('error'));
     // };
-    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services) => {
+    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, callback) => {
       $http.post('/favoritedMovie', {
         resultMovieName, resultSrc, favorite, watchLater, services,
       })
         .then((response) => {
-          console.log(response, `${resultMovieName} was saved to the DB `);
+          callback(response.data);
         })
         .catch((error) => {
-          console.log(error, 'error saving movie to db, service.js line 53-ish');
+          callback(error.data);
         });
     };
 
