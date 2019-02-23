@@ -28,7 +28,6 @@ const data = {
 angular.module('app')
   .component('search', {
     bindings: {
-
     },
     controller(Serve) {
       M.AutoInit();
