@@ -33,6 +33,10 @@ angular.module('app')
       M.AutoInit();
       this.data = data.Search;
       this.target = 0;
+      this.expanded = false;
+      this.isExpanded = () => {
+        this.expanded = !this.expanded;
+      };
       this.setData = (data) => {
         console.log(data);
         this.data = data.data;
