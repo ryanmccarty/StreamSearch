@@ -32,8 +32,13 @@ angular.module('app')
     controller(Serve) {
       M.AutoInit();
       this.data = data.Search;
-      this.target = 0;
+      this.target = '0';
       this.expanded = false;
+      this.falsePositive = () => {
+        if (this.expanded === true) {
+          this.expanded = false;
+        }
+      };
       this.isExpanded = () => {
         this.expanded = !this.expanded;
       };
