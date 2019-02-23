@@ -52,14 +52,11 @@ app.post('/login', (req, res) => {
 // LoginEnd //////////////////////////////////////////////////////////////////////////////
 
 // Get User Profile information /////////////////////////////////////////////////////////////////
-app.get('/profile-load', (req, res) => {
-  // db.getUserInfo(req, (result) => {
-  //   if (result === 'success') {
-  //     res.status(201).send(`${req.body.username} has their information loaded`);
-  //   } else {
-  //     res.status(400).send(result);
-  //   }
-  // });
+app.get('/profile/:username', (req, res) => {
+  const { username } = req.query;
+  db.getUserServices(username, (result) => {
+    res.status(200).send(result);
+  });
 });
 // Get User Profile information End//////////////////////////////////////////////////////////////
 
@@ -76,14 +73,6 @@ app.post('/signup', (req, res) => {
 });
 // SignUp End /////////////////////////////////////////////////////////////
 
-
-// routes the user to their profile and queries database for their info
-app.get('/profile', (req, res) => {
-  // call query function in database
-  // should return favorites
-  // should return watch later
-  // should return users services
-});
 
 // activates when a user clicks the services on their profile
 app.patch('/profile', (req, res) => {

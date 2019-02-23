@@ -174,8 +174,8 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
 }
 
 .profile-page-header{
-  position: absolute;
-  top: 3%;
+  position: relative;
+  top: 10%;
   left: 30%;
   color: white;
 }
