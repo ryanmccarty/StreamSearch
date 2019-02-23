@@ -28,11 +28,20 @@ const data = {
 angular.module('app')
   .component('search', {
     bindings: {
-
     },
     controller(Serve) {
       M.AutoInit();
       this.data = data.Search;
+      this.target = '0';
+      this.expanded = false;
+      this.falsePositive = () => {
+        if (this.expanded === true) {
+          this.expanded = false;
+        }
+      };
+      this.isExpanded = () => {
+        this.expanded = !this.expanded;
+      };
       this.setData = (data) => {
         console.log(data);
         this.data = data.data;
@@ -44,21 +53,14 @@ angular.module('app')
         Serve.search(query, this.setData);
       };
       this.setData = this.setData.bind(this);
+      this.setTarget = (target) => {
+        this.target = target;
+      };
       this.favoritedMovie = () => {
-        const selectedMovie = document.getElementsByClassName('carousel-item ng-binding active');
-        // Jargon to get the id of the movie/////////////////////////////////
-        // name will have to be changed with the actual title that holds the movie id
-        const srcOfMovie = (selectedMovie[0]).outerHTML.split('src="');
-        const a = srcOfMovie[1].split('"');
-        const resultSrc = a[0];
-
-        const nameOfMovie = (selectedMovie[0]).innerHTML.split('<');
-        const resultMovieName = nameOfMovie[0];
-        console.log(selectedMovie[0].innerHTML);
-
+        const resultSrc = this.data[this.target].poster;
+        const resultMovieName = this.data[this.target].title;
         const favorite = true;
         const watchLater = false;
-
         Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater);
       };
     },

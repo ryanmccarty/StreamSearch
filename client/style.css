@@ -195,3 +195,15 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
 .user-view {
   background-image: url("assets/serviceLogos/hamburger-tab-background.png");
 }
+
+a {
+  color: #ffd700;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+p.description.ng-binding {
+  width: 300px;
+  position: absolute;
+  color: ivory;
+}
