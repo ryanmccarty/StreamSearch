@@ -40,9 +40,9 @@
         {{$ctrl.data[4].title}}
         <img class="materialboxed" ng-if="$ctrl.data.length" width="200" ng-src="{{$ctrl.data[4].poster}}">
       </a>
-      <a href="$ctrl.data[$ctrl.target].services[0].url">{{$ctrl.data[$ctrl.target].services[0].display_name}}</a><br />
-      <a href="$ctrl.data[$ctrl.target].services[1].url">{{$ctrl.data[$ctrl.target].services[1].display_name}}</a><br />
-      <a href="$ctrl.data[$ctrl.target].services[2].url">{{$ctrl.data[$ctrl.target].services[2].display_name}}</a>
+      <a class="service" href="$ctrl.data[$ctrl.target].services[0].url">{{$ctrl.data[$ctrl.target].services[0].display_name}}</a><br />
+      <a class="service" href="$ctrl.data[$ctrl.target].services[1].url">{{$ctrl.data[$ctrl.target].services[1].display_name}}</a><br />
+      <a class="service" href="$ctrl.data[$ctrl.target].services[2].url">{{$ctrl.data[$ctrl.target].services[2].display_name}}</a>
     </div>
 </div>
 
