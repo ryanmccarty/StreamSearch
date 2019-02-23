@@ -54,7 +54,7 @@ angular.module('app')
 
         const nameOfMovie = (selectedMovie[0]).innerHTML.split('<');
         const resultMovieName = nameOfMovie[0];
-        console.log(resultMovieName);
+        console.log(selectedMovie[0].innerHTML);
 
         const favorite = true;
         const watchLater = false;

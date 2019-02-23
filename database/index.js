@@ -44,11 +44,8 @@ const Movie = db.define('Movie', {
   },
   movie_title: Sequelize.STRING,
   box_art: Sequelize.STRING,
-  release_year: Sequelize.INTEGER,
   favorite: Sequelize.BOOLEAN,
   watch_later: Sequelize.BOOLEAN,
-  recently_searched: Sequelize.BOOLEAN,
-
 });
 
 
@@ -203,6 +200,24 @@ const userServiceHelperFunc = (req, cb) => {
 //   const services = (Service.findAll({ where: { id_service: `${servicesID}` } }));
 //   console.log(services);
 // };
+
+const saveMovieHelperFunc = (req, callback) => {
+  const movie = req.body.resultMovieName;
+  const src = req.body.resultSrc;
+  const favorited = req.body. favorite;
+  const watchLater = req.body.watchLater;
+
+  Movie.create({
+    movie_title: movie,
+    box_art: src,
+    favorite: favorited,
+    watch_later: watchLater,
+  })
+    .then((movie) => {
+      callback('success');
+    })
+    .catch()
+};
 
 module.exports = {
   User,
