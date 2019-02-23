@@ -17,7 +17,7 @@
       </label>
     </p>
   </form>
-  <button ng-click="$ctrl.searchFor(searchTerm, type, genre)">Search the streams!</button>
+  <button ng-click="$ctrl.searchFor(searchTerm, type)">Search the streams!</button>
   
   <div class="carousel" class={{$ctrl.ignore}}>
       <a class="carousel-item" name="0" href="javascript:void(0);">{{$ctrl.data[0].title}}<img class="materialboxed" ng-if="$ctrl.data.length" width="200" ng-src="{{$ctrl.data[0].poster}}">{{$ctrl.data[0].services}}</a>
