@@ -76,10 +76,8 @@ angular.module('app')
         const favorite = true;
         const watchLater = false;
         const services = this.services();
-        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services);
+        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services, Serve.username);
       };
-
-      this.username = () => ('kc');
 
       this.watchLaterMovie = () => {
         const resultSrc = this.data[this.target].poster;
@@ -87,8 +85,7 @@ angular.module('app')
         const favorite = false;
         const watchLater = true;
         const services = this.services();
-        const user = this.username();
-        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services, user);
+        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services, Serve.username);
       };
     },
     templateUrl: 'templates/search.html',

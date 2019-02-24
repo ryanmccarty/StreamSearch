@@ -38,28 +38,15 @@ angular.module('app')
         .catch(callback);
     };
 
-    // this.getInfo = (username) => {
-    //   console.log(username);
-    //   $http.get('/profile-load', username)
-    //     .then(console.log('cool'))
-    //     .catch(console.log('error'));
-    // };
-<<<<<<< HEAD
-    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, user, callback) => {
+    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, user) => {
       $http.post('/favoritedMovie', {
         resultMovieName, resultSrc, favorite, watchLater, services, user,
-=======
-    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater) => {
-      const username = this.username;
-      $http.post('/favoritedMovie', {
-        resultMovieName, resultSrc, favorite, watchLater, username,
->>>>>>> 165ffca3ee1775a658194c1c84ed78589bd09852
       })
         .then((response) => {
-          callback(response);
+          console.log(response);
         })
         .catch((error) => {
-          console.log(error.data);
+          console.error(error);
         });
     };
 

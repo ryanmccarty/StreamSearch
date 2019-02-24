@@ -26,12 +26,6 @@ app.use(session({
 
 // Login ////////////////////////////////////////////////////////////////////////////////
 app.post('/login', (req, res) => {
-<<<<<<< HEAD
-=======
-
-
-  console.log(req.body.username, 'made it to login');
->>>>>>> 165ffca3ee1775a658194c1c84ed78589bd09852
   db.usernameInDb(req.body.username)
     .then((user) => {
       bcrypt.compare(req.body.password, user.hashed_password, (error, response) => {
@@ -109,25 +103,14 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/favoritedMovie', (req, res) => {
-  const body = req.body;
-  console.log(req.body, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  console.log(req.body);
   db.saveMovieHelperFunc(req, (response) => {
-    if (response === 'success') {
-      console.log('cool');
-    }
+      console.log(response);
   });
 
-  db.funcToMakeUserMovieTable(req, (response2) => {
-    if (response2 === 'success') {
-      res.send('added to the DB');
-    } else {
-      res.send('error line 118 server.js');
-    }
-  });
-
-  // => {
-  //   if (response === 'sucess') {
-  //     res.send('wow');
+  // db.funcToMakeUserMovieTable(req, (response2) => {
+  //   if (response2 === 'success') {
+  //     res.send('added to the DB');
   //   } else {
   //     res.send('error line 118 server.js');
   //   }
