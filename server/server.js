@@ -26,6 +26,12 @@ app.use(session({
 
 // Login ////////////////////////////////////////////////////////////////////////////////
 app.post('/login', (req, res) => {
+<<<<<<< HEAD
+=======
+
+
+  console.log(req.body.username, 'made it to login');
+>>>>>>> 165ffca3ee1775a658194c1c84ed78589bd09852
   db.usernameInDb(req.body.username)
     .then((user) => {
       bcrypt.compare(req.body.password, user.hashed_password, (error, response) => {

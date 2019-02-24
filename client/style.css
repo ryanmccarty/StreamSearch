@@ -207,3 +207,9 @@ p.description.ng-binding {
   position: absolute;
   color: ivory;
 }
+
+h1.title.ng-binding {
+  width: 300px;
+    position: relative;
+    color: ivory;
+}

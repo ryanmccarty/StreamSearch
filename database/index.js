@@ -132,8 +132,9 @@ Service.belongsToMany(User, { through: User_Service });
 // db.sync({ });
 // force: true
 
-const usernameInDb = (username) => {
-  User.findOne({ user_name: username });
+const usernameInDb = async (username) => {
+  const user = await User.findOne({ where: { user_name: username } });
+  return user;
 };
 
 db

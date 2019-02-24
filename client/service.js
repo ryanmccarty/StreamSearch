@@ -2,11 +2,13 @@
 
 angular.module('app')
   .service('Serve', function Serve($http) {
+    this.username = undefined;
     this.login = (username, password) => {
       $http.post('/login', {
         username, password,
       })
         .then((response) => {
+          this.username = username;
           console.log(response, `${username} succesfully logged in!`);
         })
         .catch((error) => {
@@ -42,9 +44,16 @@ angular.module('app')
     //     .then(console.log('cool'))
     //     .catch(console.log('error'));
     // };
+<<<<<<< HEAD
     this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, user, callback) => {
       $http.post('/favoritedMovie', {
         resultMovieName, resultSrc, favorite, watchLater, services, user,
+=======
+    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater) => {
+      const username = this.username;
+      $http.post('/favoritedMovie', {
+        resultMovieName, resultSrc, favorite, watchLater, username,
+>>>>>>> 165ffca3ee1775a658194c1c84ed78589bd09852
       })
         .then((response) => {
           callback(response);
