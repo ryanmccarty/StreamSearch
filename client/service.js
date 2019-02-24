@@ -38,7 +38,8 @@ angular.module('app')
         .catch(callback);
     };
 
-    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, user) => {
+    
+    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, user, callback) => {
       $http.post('/favoritedMovie', {
         resultMovieName, resultSrc, favorite, watchLater, services, user,
       })
@@ -61,6 +62,18 @@ angular.module('app')
         })
         .catch((error) => {
           console.error(error);
+        });
+    };
+
+    this.updateServices = (service, username, value, callback) => {
+      $http.patch('/profile', {
+        service, username, value,
+      })
+        .then((response) => {
+          callback(response);
+        })
+        .catch((error) => {
+          console.log('error sending info back to service.js (service.js (73-83))');
         });
     };
   });
