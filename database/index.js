@@ -130,7 +130,6 @@ User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
 
-
 // db.sync({ force: true });
 // force: true
 
@@ -212,6 +211,30 @@ const getUserServices = (username, cb) => {
     });
 };
 
+const getUserMovies = (username, cb) => {
+  User.findOne({ where: { user_name: username } })
+    .then((user) => {
+      User_Movie.findAll({ // <--needs to be findAll, then find all movies.
+        where: { UserIdUser: user.id_user },
+        attributes: ['MovieIdMovie'],
+      })
+        .then((movies) => {
+          const found = [];
+          movies.forEach((movie) => {
+            found.push(Movie.findOne({ where: { id_movie: movie.dataValues.MovieIdMovie } }));
+          });
+          return found;
+        })
+        .then((promisedMovies) => {
+          Promise.all(promisedMovies)
+            .then(pMovies => cb(pMovies));
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
 const funcToMakeUserMovieTable = (req, cb) => {
   const username = req.body.user;
   const title = req.body.resultMovieName;
@@ -276,6 +299,7 @@ module.exports = {
   userServiceHelperFunc,
   saveMovieHelperFunc,
   getUserServices,
+  getUserMovies,
   saveMovieHelperFunc,
   funcToMakeUserMovieTable,
 };
