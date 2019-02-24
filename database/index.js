@@ -130,7 +130,6 @@ User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
 
-
 // db.sync({ force: true });
 // force: true
 
@@ -212,6 +211,30 @@ const getUserServices = (username, cb) => {
     });
 };
 
+const getUserMovies = (username, cb) => {
+  User.findOne({ where: { user_name: username } })
+    .then((user) => {
+      User_Movie.findAll({ // <--needs to be findAll, then find all movies.
+        where: { UserIdUser: user.id_user },
+        attributes: ['MovieIdMovie'],
+      })
+        .then((movies) => {
+          const found = [];
+          movies.forEach((movie) => {
+            found.push(Movie.findOne({ where: { id_movie: movie.dataValues.MovieIdMovie } }));
+          });
+          return found;
+        })
+        .then((promisedMovies) => {
+          Promise.all(promisedMovies)
+            .then(pMovies => cb(pMovies));
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
 const funcToMakeUserMovieTable = (req, cb) => {
   const username = req.body.user;
   const title = req.body.resultMovieName;
@@ -257,25 +280,13 @@ const saveMovieHelperFunc = (req, callback) => {
       service_netflix: netflix,
       service_primevideo: primevideo,
     }),
-  ]).then(([movie, services]) => {
-    movie.addService(services, { through: Movie_Service });
-    callback('success');
-  }).catch((err) => {
-    callback('error in DB line 232');
-  });
-};
-
-const funcToMakeUserMovieTable = (req, cb) => {
-  const username = req.body.user;
-  const movie = req.body.resultMovieName;
-  Movie.findOne({ where: { movie_title: movie } })
-    .then(movieFromPromise => Promise.all([
-      movieFromPromise, User.findOne({ where: { user_name: username } }),
-    ]))
-    .then(([returnMovie, returnUser]) => {
-      returnMovie.addUser(returnUser, { through: User_Movie });
-      cb('success');
-    })
+  ]).then(([pMovie, pServices]) => {
+    pMovie.addService(pServices, { through: Movie_Service });
+  }).then(() => {
+    funcToMakeUserMovieTable(req, (response) => {
+      callback(response);
+    });
+  })
     .catch((err) => {
       callback(err);
     });
@@ -312,10 +323,6 @@ const funcToToggleServices = (req, cb) => {
             });
         }, services, service_service, value);
     });
-
-  // .catch((err) => {
-  //   console.error(err);
-  // });
 };
 
 
@@ -326,7 +333,7 @@ module.exports = {
   userServiceHelperFunc,
   saveMovieHelperFunc,
   getUserServices,
-  saveMovieHelperFunc,
+  getUserMovies,
   funcToMakeUserMovieTable,
   funcToToggleServices,
 };

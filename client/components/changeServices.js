@@ -8,7 +8,7 @@ angular.module('app')
 
       const selectServices = this;
       this.username = 'kc';
-      Serve.getInfo(this.username, (userInfo) => {
+      Serve.getServices(this.username, (userInfo) => {
         const keys = Object.keys(userInfo);
         keys.forEach((key) => {
           if (userInfo[key] !== '1' && (key !== 'id_service' && (key !== 'createdAt' && key !== 'updatedAt'))) selectServices.serviceList[key.slice(8)] = !selectServices.serviceList[key.slice(8)];

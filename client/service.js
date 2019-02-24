@@ -52,13 +52,24 @@ angular.module('app')
     };
 
 
-    this.getInfo = (username, cb) => {
-      $http.get(`/profile/${username}`, {
+    this.getServices = (username, cb) => {
+      $http.get(`/profile/${username}/favorites`, {
         params: { username },
       })
         .then((response) => {
           cb(response.data);
-          console.log(response, 'response from request for profile info');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    this.getMovies = (username, cb) => {
+      $http.get(`/profile/${username}/movies`, {
+        params: { username },
+      })
+        .then((response) => {
+          cb(response.data);
         })
         .catch((error) => {
           console.error(error);
