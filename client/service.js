@@ -62,13 +62,13 @@ angular.module('app')
           console.error(error);
         });
     };
+
     this.getMovies = (username, cb) => {
       $http.get(`/profile/${username}/movies`, {
         params: { username },
       })
         .then((response) => {
           cb(response.data);
-          console.log(response, 'response from request for user movies');
         })
         .catch((error) => {
           console.error(error);
