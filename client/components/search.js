@@ -32,29 +32,25 @@ angular.module('app')
     controller(Serve) {
       M.AutoInit();
       this.data = data.Search;
+      this.targ = '0';
       this.target = '0';
       this.expanded = false;
-      this.falsePositive = () => {
-        if (this.expanded === true) {
-          this.expanded = false;
-        }
-      };
       this.isExpanded = () => {
         this.expanded = !this.expanded;
       };
       this.setData = (data) => {
-        console.log(data);
         this.data = data.data;
         M.AutoInit();
       };
       this.searchFor = (searchTerm, type) => {
-        console.log(type);
         const query = { searchTerm, type };
         Serve.search(query, this.setData);
       };
       this.setData = this.setData.bind(this);
       this.setTarget = (target) => {
-        this.target = target;
+        const that = this;
+        this.targ = target;
+        setTimeout(() => { that.target = target; }, 1000);
       };
 
       this.services = () => {
@@ -75,23 +71,24 @@ angular.module('app')
       };
 
       this.favoritedMovie = () => {
-        console.log(this.services(), '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        const resultSrc = this.data[this.target].poster;
-        const resultMovieName = this.data[this.target].title;
+        const resultSrc = this.data[this.targ].poster;
+        const resultMovieName = this.data[this.targ].title;
         const favorite = true;
         const watchLater = false;
         const services = this.services();
         Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services);
       };
 
+      this.username = () => ('kc');
+
       this.watchLaterMovie = () => {
-        console.log(this.services(), '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         const resultSrc = this.data[this.target].poster;
         const resultMovieName = this.data[this.target].title;
         const favorite = false;
         const watchLater = true;
         const services = this.services();
-        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services);
+        const user = this.username();
+        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services, user);
       };
     },
     templateUrl: 'templates/search.html',

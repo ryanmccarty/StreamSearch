@@ -199,7 +199,7 @@ const getUserServices = (username, cb) => {
         where: { UserIdUser: user.id_user },
         attributes: ['ServiceIdService'],
       })
-        .then((uService) => Service.findOne({ where: { id_service: uService.ServiceIdService } }))
+        .then(uService => Service.findOne({ where: { id_service: uService.ServiceIdService } }))
         .then((service) => {
           cb(service.dataValues);
         });
@@ -208,6 +208,7 @@ const getUserServices = (username, cb) => {
       console.error(err);
     });
 };
+
 
 const saveMovieHelperFunc = (req, callback) => {
   const movie = req.body.resultMovieName;
@@ -221,6 +222,7 @@ const saveMovieHelperFunc = (req, callback) => {
   const iTunes = services.iTunes;
   const netflix = services.netflix;
   const primevideo = services.primevideo;
+  const username = req.body.user;
 
   Promise.all([
     Movie.create({
@@ -238,11 +240,27 @@ const saveMovieHelperFunc = (req, callback) => {
       service_primevideo: primevideo,
     }),
   ]).then(([movie, services]) => {
-    movie.addService(services, { through: Movie_Service })
+    movie.addService(services, { through: Movie_Service });
     callback('success');
   }).catch((err) => {
     callback('error in DB line 232');
   });
+};
+
+const funcToMakeUserMovieTable = (req, cb) => {
+  const username = req.body.user;
+  const movie = req.body.resultMovieName;
+  Movie.findOne({ where: { movie_title: movie } })
+    .then(movieFromPromise => Promise.all([
+      movieFromPromise, User.findOne({ where: { user_name: username } })
+    ]))
+    .then(([returnMovie, returnUser]) => {
+      returnMovie.addUser(returnUser, { through: User_Movie });
+      cb('success');
+    })
+    .catch((err) => {
+      cb('error line 262 database/index.js');
+    });
 };
 
 module.exports = {
@@ -252,6 +270,7 @@ module.exports = {
   userServiceHelperFunc,
   getUserServices,
   saveMovieHelperFunc,
+  funcToMakeUserMovieTable,
 };
 
 

@@ -27,7 +27,6 @@ angular.module('app')
     };
 
     this.search = (query, callback) => {
-      console.log(query);
       $http({
         url: '/search',
         params: query,
@@ -43,15 +42,15 @@ angular.module('app')
     //     .then(console.log('cool'))
     //     .catch(console.log('error'));
     // };
-    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, callback) => {
+    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, user, callback) => {
       $http.post('/favoritedMovie', {
-        resultMovieName, resultSrc, favorite, watchLater, services,
+        resultMovieName, resultSrc, favorite, watchLater, services, user,
       })
         .then((response) => {
-          callback(response.data);
+          callback(response);
         })
         .catch((error) => {
-          callback(error.data);
+          console.log(error.data);
         });
     };
 

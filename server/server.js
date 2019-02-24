@@ -26,9 +26,6 @@ app.use(session({
 
 // Login ////////////////////////////////////////////////////////////////////////////////
 app.post('/login', (req, res) => {
-
-
-  console.log(req.post, 'made it to login');
   db.usernameInDb(req.body.username)
     .then((user) => {
       bcrypt.compare(req.body.password, user.hashed_password, (error, response) => {
@@ -92,11 +89,10 @@ app.get('/', (req, res) => {
 
 // get request sent when search is performed
 app.get('/search', (req, res) => {
-  let movies = helpers.getMovies(req.query);
-  // console.log(movies);
+  const movies = helpers.getMovies(req.query);
   movies.then(data => res.send(data));
   // should send results to client and database
-  console.log(req.body, 'server received this search request');
+  // console.log(req.body, 'server received this search request');
   // res.status(200).send(utellySample);
 });
 
@@ -107,14 +103,29 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/favoritedMovie', (req, res) => {
-  console.log(req.body);
+  const body = req.body;
+  console.log(req.body, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
   db.saveMovieHelperFunc(req, (response) => {
     if (response === 'success') {
-      res.status(201).send(`${req.body.movie} was added to the DB`);
-    } else {
-      res.status(500).send('error line 116 server.js');
+      console.log('cool');
     }
   });
+
+  db.funcToMakeUserMovieTable(req, (response2) => {
+    if (response2 === 'success') {
+      res.send('added to the DB');
+    } else {
+      res.send('error line 118 server.js');
+    }
+  });
+
+  // => {
+  //   if (response === 'sucess') {
+  //     res.send('wow');
+  //   } else {
+  //     res.send('error line 118 server.js');
+  //   }
+  // });
 });
 
 
