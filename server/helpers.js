@@ -27,6 +27,7 @@ const getMovies = async (query) => {
       return ({
         title: anime.attributes.titles.en_us,
         poster: anime.attributes.posterImage.small,
+        overview: anime.attributes.synopsis,
         services: [{ display_name: 'Crunchyroll', url: `https://www.crunchyroll.com/${endpoint}` }],
       });
     });
