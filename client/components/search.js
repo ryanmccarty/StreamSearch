@@ -39,27 +39,56 @@ angular.module('app')
         this.expanded = !this.expanded;
       };
       this.setData = (data) => {
-        console.log(data);
         this.data = data.data;
         M.AutoInit();
       };
       this.searchFor = (searchTerm, type) => {
-        console.log(type);
         const query = { searchTerm, type };
         Serve.search(query, this.setData);
       };
       this.setData = this.setData.bind(this);
       this.setTarget = (target) => {
-        let that = this;
+        const that = this;
         this.targ = target;
-        setTimeout(() => { that.target = target }, 1000);
+        setTimeout(() => { that.target = target; }, 1000);
       };
+
+      this.services = () => {
+        const options = {
+          crunchyroll: false,
+          googleplay: false,
+          hulu: false,
+          iTunes: false,
+          netflix: false,
+          primevideo: false,
+        };
+        this.data[this.target].services.forEach((service) => {
+          if (Object.keys(options).includes(service.display_name)) {
+            options[service.display_name] = true;
+          }
+        });
+        return options;
+      };
+
       this.favoritedMovie = () => {
         const resultSrc = this.data[this.targ].poster;
         const resultMovieName = this.data[this.targ].title;
         const favorite = true;
         const watchLater = false;
-        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater);
+        const services = this.services();
+        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services);
+      };
+
+      this.username = () => ('kc');
+
+      this.watchLaterMovie = () => {
+        const resultSrc = this.data[this.target].poster;
+        const resultMovieName = this.data[this.target].title;
+        const favorite = false;
+        const watchLater = true;
+        const services = this.services();
+        const user = this.username();
+        Serve.favoritedMovie(resultMovieName, resultSrc, favorite, watchLater, services, user);
       };
     },
     templateUrl: 'templates/search.html',

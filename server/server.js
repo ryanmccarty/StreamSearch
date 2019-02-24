@@ -62,6 +62,7 @@ app.get('/profile/:username', (req, res) => {
 
 // SignUp ////////////////////////////////////////////////////////////////
 app.post('/signup', (req, res) => {
+  console.log(req.body);
   db.userServiceHelperFunc(req, (result) => {
     if (result === 'success') {
       res.status(201).send(`${req.body.username} succesfully registered!`);
@@ -91,11 +92,10 @@ app.get('/', (req, res) => {
 
 // get request sent when search is performed
 app.get('/search', (req, res) => {
-  let movies = helpers.getMovies(req.query);
-  console.log(movies);
+  const movies = helpers.getMovies(req.query);
   movies.then(data => res.send(data));
   // should send results to client and database
-  console.log(req.body, 'server received this search request');
+  // console.log(req.body, 'server received this search request');
   // res.status(200).send(utellySample);
 });
 
@@ -106,8 +106,29 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/favoritedMovie', (req, res) => {
-  db.saveMovieHelperFunc(req, (data) => console.log(data));
-  res.send('cool');
+  const body = req.body;
+  console.log(req.body, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  db.saveMovieHelperFunc(req, (response) => {
+    if (response === 'success') {
+      console.log('cool');
+    }
+  });
+
+  db.funcToMakeUserMovieTable(req, (response2) => {
+    if (response2 === 'success') {
+      res.send('added to the DB');
+    } else {
+      res.send('error line 118 server.js');
+    }
+  });
+
+  // => {
+  //   if (response === 'sucess') {
+  //     res.send('wow');
+  //   } else {
+  //     res.send('error line 118 server.js');
+  //   }
+  // });
 });
 
 
