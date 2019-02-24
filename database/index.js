@@ -228,6 +228,7 @@ module.exports = {
   Service,
   usernameInDb,
   userServiceHelperFunc,
+  saveMovieHelperFunc,
   getUserServices,
 };
 

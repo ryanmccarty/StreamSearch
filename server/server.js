@@ -106,7 +106,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/favoritedMovie', (req, res) => {
-  console.log(req.body);
+  db.saveMovieHelperFunc(req, (data) => console.log(data));
   res.send('cool');
 });
 
