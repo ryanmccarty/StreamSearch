@@ -2,11 +2,13 @@
 
 angular.module('app')
   .service('Serve', function Serve($http) {
+    this.username = undefined;
     this.login = (username, password) => {
       $http.post('/login', {
         username, password,
       })
         .then((response) => {
+          this.username = username;
           console.log(response, `${username} succesfully logged in!`);
         })
         .catch((error) => {
@@ -44,8 +46,9 @@ angular.module('app')
     //     .catch(console.log('error'));
     // };
     this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater) => {
+      const username = this.username;
       $http.post('/favoritedMovie', {
-        resultMovieName, resultSrc, favorite, watchLater,
+        resultMovieName, resultSrc, favorite, watchLater, username,
       })
         .then((response) => {
           console.log(response, `${resultMovieName} was saved to the DB `);

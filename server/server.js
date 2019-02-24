@@ -28,7 +28,7 @@ app.use(session({
 app.post('/login', (req, res) => {
 
 
-  console.log(req.post, 'made it to login');
+  console.log(req.body.username, 'made it to login');
   db.usernameInDb(req.body.username)
     .then((user) => {
       bcrypt.compare(req.body.password, user.hashed_password, (error, response) => {
