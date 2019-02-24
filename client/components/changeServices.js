@@ -4,7 +4,7 @@ angular.module('app')
       service: '<',
     },
     controller(Serve) {
-      M.AutoInit();
+      // M.AutoInit();
 
       const selectServices = this;
       this.username = 'kc';
@@ -26,6 +26,11 @@ angular.module('app')
 
       selectServices.clickedService = (service) => {
         selectServices.serviceList[service] = !selectServices.serviceList[service];
+        Serve.updateServices(service, this.username, selectServices.serviceList[service], (response) => {
+          if (response) {
+            console.log('recieved something from db regarding patch request to toggle services');
+          }
+        });
       };
     },
     templateUrl: '../templates/changeServices.html',

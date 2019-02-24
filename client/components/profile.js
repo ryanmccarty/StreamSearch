@@ -5,9 +5,8 @@ angular.module('app')
       clickedService: '<',
     },
     controller(Serve) {
-
       this.changeService = (clickedService) => {
-        console.log(clickedService, 'profile.js');
+        console.log(clickedService, 'click registered in profile.js');
         this.status = !this.status;
       };
     },

@@ -253,7 +253,7 @@ const funcToMakeUserMovieTable = (req, cb) => {
   const movie = req.body.resultMovieName;
   Movie.findOne({ where: { movie_title: movie } })
     .then(movieFromPromise => Promise.all([
-      movieFromPromise, User.findOne({ where: { user_name: username } })
+      movieFromPromise, User.findOne({ where: { user_name: username } }),
     ]))
     .then(([returnMovie, returnUser]) => {
       returnMovie.addUser(returnUser, { through: User_Movie });
@@ -264,6 +264,44 @@ const funcToMakeUserMovieTable = (req, cb) => {
     });
 };
 
+const funcToToggleServices = (req, cb) => {
+  const services = req.body.service;
+  const service_service = `service_${req.body.service}`;
+  const username = req.body.username;
+  const value = req.body.value;
+
+  User.findOne({ where: { user_name: username } }, services, service_service, value)
+    .then((user) => {
+      User_Service.findOne({
+        where: { UserIdUser: user.id_user },
+        attributes: ['ServiceIdService'],
+      }, services, service_service, value)
+        .then((allServices) => {
+          // In the service table, find the services associated with the userID
+          Service.findOne(
+            { where: { id_service: allServices.dataValues.ServiceIdService } },
+          )
+            .then((val) => {
+              console.log(val.dataValues.id_service);
+              console.log(!value);
+              console.log(service_service);
+              Service.update(
+                { [service_service]: !value },
+                { where: { id_service: val.dataValues.id_service } },
+              );
+            })
+            .then((result) => {
+              console.log(result);
+            });
+        }, services, service_service, value);
+    });
+
+  // .catch((err) => {
+  //   console.error(err);
+  // });
+};
+
+
 module.exports = {
   User,
   Service,
@@ -272,6 +310,7 @@ module.exports = {
   getUserServices,
   saveMovieHelperFunc,
   funcToMakeUserMovieTable,
+  funcToToggleServices,
 };
 
 
