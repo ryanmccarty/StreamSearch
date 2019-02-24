@@ -2,6 +2,7 @@ angular.module('app')
   .component('profile', {
     bindings: {
       path: '<',
+      clickedService: '<',
     },
     controller(Serve) {
       this.services = [];
@@ -23,6 +24,11 @@ angular.module('app')
           if (userInfo[key] === '1' && key !== 'id_service') this.services.push(key.slice(8));
         });
       });
+
+      this.changeService = (clickedService) => {
+        console.log(clickedService, 'click registered in profile.js');
+        this.status = !this.status;
+      };
     },
     templateUrl: '/templates/profile.html',
   });
