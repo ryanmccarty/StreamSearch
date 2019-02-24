@@ -3,10 +3,10 @@
   <greet path="$ctrl.route" log="$ctrl.login" />
 </div>
 <div>
-  <login ng-if="$ctrl.route === '/login'" path="$ctrl.login" />
+  <login ng-if="$ctrl.route === '/login'" user="$ctrl.setUsername" />
 </div>
 <div>
-  <signup ng-hide="$ctrl.route" log="$ctrl.login" />
+  <signup ng-hide="$ctrl.route" user="$ctrl.setUsername" />
 </div>
 <div>
     <search ng-hide="$ctrl.route" data="$ctrl.data" />
