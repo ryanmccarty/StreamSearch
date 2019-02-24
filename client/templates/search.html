@@ -6,7 +6,7 @@
     <span>I'm looking for...</span>
     <p>
       <label>  
-        <input name="group1" type="radio" ng-model="type" value="TV" checked />
+        <input name="group1" type="radio" ng-model="type" value="tv" checked />
         <span>A TV Show</span>
       </label>
     </p>
@@ -40,11 +40,12 @@
         {{$ctrl.data[4].title}}
         <img class="materialboxed" ng-if="$ctrl.data.length" width="200" ng-src="{{$ctrl.data[4].poster}}">
       </a>
-      <a class="service" href="$ctrl.data[$ctrl.target].services[0].url">{{$ctrl.data[$ctrl.targ].services[0].display_name}}</a><br />
-      <a class="service" href="$ctrl.data[$ctrl.target].services[1].url">{{$ctrl.data[$ctrl.targ].services[1].display_name}}</a><br />
-      <a class="service" href="$ctrl.data[$ctrl.target].services[2].url">{{$ctrl.data[$ctrl.targ].services[2].display_name}}</a>
     </div>
-</div>
+  </div>
+  <a class="service" href="{{$ctrl.data[$ctrl.targ].services[0].url}}">{{$ctrl.data[$ctrl.targ].services[0].display_name}}</a><br />
+  <a class="service" href="{{$ctrl.data[$ctrl.targ].services[1].url}}">{{$ctrl.data[$ctrl.targ].services[1].display_name}}</a><br />
+  <a class="service" ng-if="$ctrl.data[$ctrl.targ].hulu" href="https://www.hulu.com/">Hulu</a><br />
+  <a class="service" href="{{$ctrl.data[$ctrl.targ].services[2].url}}">{{$ctrl.data[$ctrl.targ].services[2].display_name}}</a>
 <h1 ng-if="$ctrl.expanded" class="title">{{$ctrl.data[$ctrl.target].title}}</h1>
 <p ng-if="$ctrl.expanded" class="description">{{$ctrl.data[$ctrl.target].overview}}</p>
 

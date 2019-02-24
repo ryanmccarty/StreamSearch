@@ -38,21 +38,16 @@ angular.module('app')
         .catch(callback);
     };
 
-    // this.getInfo = (username) => {
-    //   console.log(username);
-    //   $http.get('/profile-load', username)
-    //     .then(console.log('cool'))
-    //     .catch(console.log('error'));
-    // };
+    
     this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, user, callback) => {
       $http.post('/favoritedMovie', {
         resultMovieName, resultSrc, favorite, watchLater, services, user,
       })
         .then((response) => {
-          callback(response);
+          console.log(response);
         })
         .catch((error) => {
-          console.log(error.data);
+          console.error(error);
         });
     };
 

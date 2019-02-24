@@ -1,14 +1,14 @@
 const express = require('express');
-
 const app = express();
 const session = require('express-session');
-
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const db = require('../database/index.js');
 const helpers = require('./helpers');
 
+
+require('dotenv').config();
 
 app.use(bodyParser.json());
 app.use(express.static('client'));
@@ -111,25 +111,14 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/favoritedMovie', (req, res) => {
-  const body = req.body;
-  console.log(req.body, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  console.log(req.body);
   db.saveMovieHelperFunc(req, (response) => {
-    if (response === 'success') {
-      console.log('cool');
-    }
+      console.log(response);
   });
 
-  db.funcToMakeUserMovieTable(req, (response2) => {
-    if (response2 === 'success') {
-      res.send('added to the DB');
-    } else {
-      res.send('error line 118 server.js');
-    }
-  });
-
-  // => {
-  //   if (response === 'sucess') {
-  //     res.send('wow');
+  // db.funcToMakeUserMovieTable(req, (response2) => {
+  //   if (response2 === 'success') {
+  //     res.send('added to the DB');
   //   } else {
   //     res.send('error line 118 server.js');
   //   }
