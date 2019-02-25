@@ -1,14 +1,14 @@
 const express = require('express');
-
 const app = express();
 const session = require('express-session');
-
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const db = require('../database/index.js');
 const helpers = require('./helpers');
 
+
+require('dotenv').config();
 
 app.use(bodyParser.json());
 app.use(express.static('client'));
@@ -49,9 +49,16 @@ app.post('/login', (req, res) => {
 // LoginEnd //////////////////////////////////////////////////////////////////////////////
 
 // Get User Profile information /////////////////////////////////////////////////////////////////
-app.get('/profile/:username', (req, res) => {
+app.get('/profile/:username/favorites', (req, res) => {
   const { username } = req.query;
   db.getUserServices(username, (result) => {
+    res.status(200).send(result);
+  });
+});
+
+app.get('/profile/:username/movies', (req, res) => {
+  const { username } = req.query;
+  db.getUserMovies(username, (result) => {
     res.status(200).send(result);
   });
 });
@@ -76,6 +83,11 @@ app.post('/signup', (req, res) => {
 app.patch('/profile', (req, res) => {
   // should perform an update query to database
   // should be able to add or remove services
+  console.log(req.body, 'server.js');
+  db.funcToToggleServices(req, (result) => {
+    console.log(result);
+  });
+  res.send('cool');
 });
 
 // triggered when user tries to access main page (search page?)
@@ -103,29 +115,10 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/favoritedMovie', (req, res) => {
-  const body = req.body;
-  console.log(req.body, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
   db.saveMovieHelperFunc(req, (response) => {
-    if (response === 'success') {
-      console.log('cool');
-    }
+    console.log(response);
+    res.status(201).send();
   });
-
-  db.funcToMakeUserMovieTable(req, (response2) => {
-    if (response2 === 'success') {
-      res.send('added to the DB');
-    } else {
-      res.send('error line 118 server.js');
-    }
-  });
-
-  // => {
-  //   if (response === 'sucess') {
-  //     res.send('wow');
-  //   } else {
-  //     res.send('error line 118 server.js');
-  //   }
-  // });
 });
 
 

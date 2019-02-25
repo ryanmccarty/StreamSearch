@@ -99,8 +99,8 @@ const User_Movie = db.define('User_Movie', {
 });
 User_Movie.belongsTo(User);
 User_Movie.belongsTo(Movie);
-User.belongsToMany(Service, { through: User_Movie });
-Service.belongsToMany(User, { through: User_Movie });
+User.belongsToMany(Movie, { through: User_Movie });
+Movie.belongsToMany(User, { through: User_Movie });
 
 
 const User_Service = db.define('User_Service', {
@@ -129,7 +129,8 @@ User_Service.belongsTo(Service);
 User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
-// db.sync({ });
+
+// db.sync({ force: true });
 // force: true
 
 const usernameInDb = async (username) => {
@@ -210,6 +211,45 @@ const getUserServices = (username, cb) => {
     });
 };
 
+const getUserMovies = (username, cb) => {
+  User.findOne({ where: { user_name: username } })
+    .then((user) => {
+      User_Movie.findAll({ // <--needs to be findAll, then find all movies.
+        where: { UserIdUser: user.id_user },
+        attributes: ['MovieIdMovie'],
+      })
+        .then((movies) => {
+          const found = [];
+          movies.forEach((movie) => {
+            found.push(Movie.findOne({ where: { id_movie: movie.dataValues.MovieIdMovie } }));
+          });
+          return found;
+        })
+        .then((promisedMovies) => {
+          Promise.all(promisedMovies)
+            .then(pMovies => cb(pMovies));
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+const funcToMakeUserMovieTable = (req, cb) => {
+  const username = req.body.user;
+  const title = req.body.resultMovieName;
+  Movie.findOne({ where: { movie_title: title } })
+    .then((movie) => {
+      User.findOne({ where: { user_name: username } })
+        .then((user) => {
+          user.addMovie(movie, { through: User_Movie });
+        });
+    })
+    .catch((err) => {
+      cb(err);
+    });
+};
+
 
 const saveMovieHelperFunc = (req, callback) => {
   const movie = req.body.resultMovieName;
@@ -240,38 +280,62 @@ const saveMovieHelperFunc = (req, callback) => {
       service_netflix: netflix,
       service_primevideo: primevideo,
     }),
-  ]).then(([movie, services]) => {
-    movie.addService(services, { through: Movie_Service });
-    callback('success');
-  }).catch((err) => {
-    callback('error in DB line 232');
-  });
-};
-
-const funcToMakeUserMovieTable = (req, cb) => {
-  const username = req.body.user;
-  const movie = req.body.resultMovieName;
-  Movie.findOne({ where: { movie_title: movie } })
-    .then(movieFromPromise => Promise.all([
-      movieFromPromise, User.findOne({ where: { user_name: username } })
-    ]))
-    .then(([returnMovie, returnUser]) => {
-      returnMovie.addUser(returnUser, { through: User_Movie });
-      cb('success');
-    })
+  ]).then(([pMovie, pServices]) => {
+    pMovie.addService(pServices, { through: Movie_Service });
+  }).then(() => {
+    funcToMakeUserMovieTable(req, (response) => {
+      callback(response);
+    });
+  })
     .catch((err) => {
-      cb('error line 262 database/index.js');
+      callback(err);
     });
 };
+
+const funcToToggleServices = (req, cb) => {
+  const services = req.body.service;
+  const service_service = `service_${req.body.service}`;
+  const username = req.body.username;
+  const value = req.body.value;
+
+  User.findOne({ where: { user_name: username } }, services, service_service, value)
+    .then((user) => {
+      User_Service.findOne({
+        where: { UserIdUser: user.id_user },
+        attributes: ['ServiceIdService'],
+      }, services, service_service, value)
+        .then((allServices) => {
+          // In the service table, find the services associated with the userID
+          Service.findOne(
+            { where: { id_service: allServices.dataValues.ServiceIdService } },
+          )
+            .then((val) => {
+              console.log(val.dataValues.id_service);
+              console.log(!value);
+              console.log(service_service);
+              Service.update(
+                { [service_service]: !value },
+                { where: { id_service: val.dataValues.id_service } },
+              );
+            })
+            .then((result) => {
+              console.log(result);
+            });
+        }, services, service_service, value);
+    });
+};
+
 
 module.exports = {
   User,
   Service,
   usernameInDb,
   userServiceHelperFunc,
-  getUserServices,
   saveMovieHelperFunc,
+  getUserServices,
+  getUserMovies,
   funcToMakeUserMovieTable,
+  funcToToggleServices,
 };
 
 

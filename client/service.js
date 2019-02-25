@@ -38,42 +38,53 @@ angular.module('app')
         .catch(callback);
     };
 
-    // this.getInfo = (username) => {
-    //   console.log(username);
-    //   $http.get('/profile-load', username)
-    //     .then(console.log('cool'))
-    //     .catch(console.log('error'));
-    // };
-<<<<<<< HEAD
+    
     this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater, services, user, callback) => {
       $http.post('/favoritedMovie', {
         resultMovieName, resultSrc, favorite, watchLater, services, user,
-=======
-    this.favoritedMovie = (resultMovieName, resultSrc, favorite, watchLater) => {
-      const username = this.username;
-      $http.post('/favoritedMovie', {
-        resultMovieName, resultSrc, favorite, watchLater, username,
->>>>>>> 165ffca3ee1775a658194c1c84ed78589bd09852
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+
+    this.getServices = (username, cb) => {
+      $http.get(`/profile/${username}/favorites`, {
+        params: { username },
+      })
+        .then((response) => {
+          cb(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    this.getMovies = (username, cb) => {
+      $http.get(`/profile/${username}/movies`, {
+        params: { username },
+      })
+        .then((response) => {
+          cb(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    this.updateServices = (service, username, value, callback) => {
+      $http.patch('/profile', {
+        service, username, value,
       })
         .then((response) => {
           callback(response);
         })
         .catch((error) => {
-          console.log(error.data);
-        });
-    };
-
-
-    this.getInfo = (username, cb) => {
-      $http.get(`/profile/${username}`, {
-        params: { username },
-      })
-        .then((response) => {
-          cb(response.data);
-          console.log(response, 'response from request for profile info');
-        })
-        .catch((error) => {
-          console.error(error);
+          console.log('error sending info back to service.js (service.js (73-83))');
         });
     };
   });
