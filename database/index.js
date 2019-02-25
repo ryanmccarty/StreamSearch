@@ -129,7 +129,7 @@ User_Service.belongsTo(Service);
 User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
-
+// Clears the database
 // db.sync({ force: true });
 // force: true
 

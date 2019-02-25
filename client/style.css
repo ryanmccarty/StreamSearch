@@ -213,3 +213,14 @@ h1.title.ng-binding {
     position: relative;
     color: ivory;
 }
+
+.material-icons {
+  /* position: absolute;
+  top: 10%;
+  left: 30%; */
+}
+
+.sidenav-overlay {
+    position: fixed;
+    display: none;
+}
