@@ -2,8 +2,11 @@
   <sidebar></sidebar>
   <div class="profile-favorites">
     <h2 class='profile-page-header'>Favorites</h2>
-    <img ng-repeat="movie in $ctrl.favorites" movie="movie" height=200 width=relative
+    <div class="movie" ng-repeat="movie in $ctrl.favorites">
+      {{movie.title}}
+    <img movie="movie" height=200 width=relative
       ng-src="{{movie.box_art}}"/>
+    </div>
   </div>
   <div class="profile-watchlist">
     <h2 class='profile-page-header'>Watchlist</h2>

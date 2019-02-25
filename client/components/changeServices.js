@@ -7,7 +7,7 @@ angular.module('app')
       // M.AutoInit();
 
       const selectServices = this;
-      this.username = 'kc';
+      this.username = 'Ablung';
       Serve.getServices(this.username, (userInfo) => {
         const keys = Object.keys(userInfo);
         keys.forEach((key) => {

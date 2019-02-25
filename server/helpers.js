@@ -7,19 +7,28 @@ const getMovies = async (query) => {
   const movieDB = await apis.movies(query);
   const titles = utelly.data.results.map(vid => vid.name);
   const movies = movieDB.data.results.reduce((a, b) => {
-    if (b && (titles.includes(b.title) || hulu.includes(b.title)) && b.vote_count) {
+    if (b.hasOwnProperty('name')) {
+      b.title = b.name;
+    }
+    let partial = b.title;
+    if (b.title.includes('The ')) {
+      partial = b.title.replace('The ', '');
+    } else if (b.title.includes('!')) {
+      partial = b.title.replace('!', '');
+    }
+    if (b && (titles.includes(partial) || hulu.includes(b.title)) && b.popularity) {
       a.push({
         title: b.title,
         poster: `http://image.tmdb.org/t/p/w780/${b.poster_path}`,
         backdrop: `http://image.tmdb.org/t/p/w780/${b.backdrop_path}`,
         overview: b.overview,
-        services: utelly.data.results[titles.indexOf(b.title)].locations,
+        services: utelly.data.results[titles.indexOf(partial)].locations,
         hulu: hulu.includes(b.title),
       });
       return a;
     }
     return a;
-  }, []);
+  }, []).filter(vids => vids !== undefined);
   if (movies.length < 5) {
     const anim = kitsu.data.data.map((anime) => {
       const title = anime.attributes.titles.en_us || anime.attributes.titles.en || anime.attributes.titles.ja_jp
