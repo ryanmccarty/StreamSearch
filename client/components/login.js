@@ -7,10 +7,18 @@ angular.module('app')
       this.username = null;
       this.password = null;
 
+      this.taken = false;
+
       this.login = () => {
-        $location.path('search');
+        Serve.login(this.username, this.password, (response) => {
+          if (response !== 'good') {
+            $location.path('login');
+            this.wrong = true;
+          } else {
+            $location.path('search');
+          }
+        });
         console.log(`logging in ${this.username}...`);
-        Serve.login(this.username, this.password);
         //  itemsService.sendText(username, password);
       };
     },

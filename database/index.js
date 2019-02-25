@@ -310,9 +310,9 @@ const funcToToggleServices = (req, cb) => {
             { where: { id_service: allServices.dataValues.ServiceIdService } },
           )
             .then((val) => {
-              console.log(val.dataValues.id_service);
-              console.log(!value);
-              console.log(service_service);
+              // console.log(val.dataValues.id_service);
+              // console.log(!value);
+              // console.log(service_service);
               Service.update(
                 { [service_service]: !value },
                 { where: { id_service: val.dataValues.id_service } },
