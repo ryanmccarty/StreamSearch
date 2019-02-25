@@ -213,3 +213,11 @@ h1.title.ng-binding {
     position: relative;
     color: ivory;
 }
+
+.movie {
+  display: inline-flex;
+}
+
+.profile-page-header {
+  width: 500px;
+}
