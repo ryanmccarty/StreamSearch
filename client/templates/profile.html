@@ -1,14 +1,18 @@
-<div class='profile'>
-  <sidebar></sidebar>
+<sidebar></sidebar>
+<div class='profile' style="width: fit-content;margin: 0 auto;">
   <div class="profile-favorites">
     <h2 class='profile-page-header'>Favorites</h2>
-    <img ng-repeat="movie in $ctrl.favorites" movie="movie" height=200 width=relative
-      ng-src="{{movie.box_art}}"/>
+    <div class="movie" ng-repeat="movie in $ctrl.favorites">
+    <img movie="movie" height=200 width=relative
+      ng-src="{{movie.box_art}}"><div style="color: white;width: 150px;">{{movie.movie_title}}</div></img>
+    </div>
   </div>
   <div class="profile-watchlist">
     <h2 class='profile-page-header'>Watchlist</h2>
-    <img ng-repeat="movie in $ctrl.watchList" movie="movie" height=200 width=relative 
-    ng-src="{{movie.box_art}}" />
+    <div class="movie" ng-repeat="movie in $ctrl.watchList">
+    <img  movie="movie" height=200 width=relative 
+    ng-src="{{movie.box_art}}"><div style="color: white;width: 150px;">{{movie.movie_title}}</div></img>
+    </div>
   </div>
   <div class="profile-services">
     <h2 class='profile-page-header'>My Services</h2>

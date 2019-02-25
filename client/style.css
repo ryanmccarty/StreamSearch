@@ -223,4 +223,10 @@ h1.title.ng-binding {
 .sidenav-overlay {
     position: fixed;
     display: none;
+.movie {
+  display: inline-flex;
+}
+
+.profile-page-header {
+  width: 500px;
 }
