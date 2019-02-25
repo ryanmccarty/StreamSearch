@@ -1,9 +1,18 @@
 const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 
-const db = new Sequelize('streamsearch', 'root', null, {
-  host: 'localhost',
+require('dotenv').config();
+
+const db = new Sequelize({
+  host: process.env.AWS_HOST || 'localhost',
+  port: 3306,
+  username: process.env.AWS_USER || 'root',
+  password: process.env.AWS_PASS || '',
+  // database: process.env.AWS_DB || 'streamsearch',
   dialect: 'mysql',
+  dialectOptions: {
+    ssl: 'Amazon RDS',
+  },
 });
 
 const User = db.define('User', {
@@ -130,8 +139,8 @@ User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
 
-// db.sync({ force: true });
-// force: true
+// db.sync();
+// { force: true }
 
 const usernameInDb = async (username) => {
   const user = await User.findOne({ where: { user_name: username } });

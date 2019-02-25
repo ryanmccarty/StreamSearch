@@ -4,11 +4,11 @@ const session = require('express-session');
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 const db = require('../database/index.js');
 const helpers = require('./helpers');
 
 
-require('dotenv').config();
 
 app.use(bodyParser.json());
 app.use(express.static('client'));
@@ -26,9 +26,6 @@ app.use(session({
 
 // Login ////////////////////////////////////////////////////////////////////////////////
 app.post('/login', (req, res) => {
-
-
-  console.log(req.body.username, 'made it to login');
   db.usernameInDb(req.body.username)
     .then((user) => {
       bcrypt.compare(req.body.password, user.hashed_password, (error, response) => {
