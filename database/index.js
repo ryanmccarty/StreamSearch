@@ -8,7 +8,7 @@ const db = new Sequelize({
   port: 3306,
   username: process.env.AWS_USER || 'root',
   password: process.env.AWS_PASS || '',
-  // database: process.env.AWS_DB || 'streamsearch',
+  database: process.env.AWS_DB || 'streamsearch',
   dialect: 'mysql',
   dialectOptions: {
     ssl: 'Amazon RDS',
