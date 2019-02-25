@@ -29,10 +29,9 @@
 }
 
 .greet{
-  float: middle;
-    margin-right: 150px;
+  display: inline;
+  width: 50%;
   font-size: 30px;
-  margin-left: 11em;
 }
 
 .carousel {
