@@ -215,7 +215,7 @@ h1.title.ng-binding {
 }
 
 .movie {
-  display: inline;
+  display: inline-flex;
 }
 
 .profile-page-header {

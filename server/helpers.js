@@ -16,13 +16,19 @@ const getMovies = async (query) => {
     } else if (b.title.includes('!')) {
       partial = b.title.replace('!', '');
     }
-    if (b && (titles.includes(partial) || hulu.includes(b.title)) && b.popularity) {
+    let index;
+    if (titles.indexOf(partial) < 0) {
+      index = titles.indexOf(b.title);
+    } else {
+      index = titles.indexOf(partial);
+    }
+    if (b && (titles.join('').includes(partial) || hulu.includes(b.title)) && b.popularity) {
       a.push({
         title: b.title,
         poster: `http://image.tmdb.org/t/p/w780/${b.poster_path}`,
         backdrop: `http://image.tmdb.org/t/p/w780/${b.backdrop_path}`,
         overview: b.overview,
-        services: utelly.data.results[titles.indexOf(partial)].locations,
+        services: utelly.data.results[index].locations,
         hulu: hulu.includes(b.title),
       });
       return a;
