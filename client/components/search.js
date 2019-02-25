@@ -45,6 +45,8 @@ angular.module('app')
       this.searchFor = (searchTerm, type) => {
         const query = { searchTerm, type };
         Serve.search(query, this.setData);
+        this.target = 0;
+        this.targ = 0;
       };
       this.setData = this.setData.bind(this);
       this.setTarget = (target) => {
