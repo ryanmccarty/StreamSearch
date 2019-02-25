@@ -2,29 +2,31 @@
 
 angular.module('app')
   .service('Serve', function Serve($http) {
-    this.username = undefined;
-    this.login = (username, password) => {
+    // this.username = undefined;
+    this.login = (username, password, callback) => {
       $http.post('/login', {
         username, password,
       })
         .then((response) => {
           this.username = username;
           console.log(response, `${username} succesfully logged in!`);
+          callback(response.data);
         })
         .catch((error) => {
           console.error(error, `failed to login ${username}`);
+          callback(error.data);
         });
     };
 
-    this.signup = (username, fullname, password, country, services, cb) => {
+    this.signup = (username, fullname, password, country, services, callback) => {
       $http.post('/signup', {
         username, fullname, password, country, services,
       })
         .then((response) => {
-          cb(response.data);
+          callback(response.data);
         })
         .catch((error) => {
-          cb(error.data);
+          callback(error.data);
         });
     };
 

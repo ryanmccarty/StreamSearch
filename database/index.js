@@ -138,9 +138,9 @@ User_Service.belongsTo(Service);
 User.belongsToMany(Service, { through: User_Service });
 Service.belongsToMany(User, { through: User_Service });
 
-
-// db.sync();
-// { force: true }
+// Clears the database
+// db.sync({ force: true });
+// force: true
 
 const usernameInDb = async (username) => {
   const user = await User.findOne({ where: { user_name: username } });
@@ -319,9 +319,9 @@ const funcToToggleServices = (req, cb) => {
             { where: { id_service: allServices.dataValues.ServiceIdService } },
           )
             .then((val) => {
-              console.log(val.dataValues.id_service);
-              console.log(!value);
-              console.log(service_service);
+              // console.log(val.dataValues.id_service);
+              // console.log(!value);
+              // console.log(service_service);
               Service.update(
                 { [service_service]: !value },
                 { where: { id_service: val.dataValues.id_service } },

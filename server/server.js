@@ -1,6 +1,8 @@
 const express = require('express');
+
 const app = express();
 const session = require('express-session');
+
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -17,9 +19,10 @@ app.use(express.static('node_modules'));
 // Session/////////////////////
 app.use(session({
   secret: 'cain is sour never sweet',
-  resave: false,
+  resave: true,
+  username: null,
   saveUninitialized: true,
-  cookie: { secure: true },
+  cookie: { path: '/' },
 }));
 // Session End /////////////////
 
@@ -32,12 +35,11 @@ app.post('/login', (req, res) => {
         if (error) {
           console.error(error);
           res.status(500).send('no such user or incorrect password!');
-        } else {
-          console.log(response);
-          req.session.regenerate(() => {
+        } else if (response) {
+          return req.session.regenerate(() => { 
             req.session.user = req.body.username;
+            res.send('good');
           });
-          res.status(201).send('logged in!');
         }
       });
 
@@ -66,7 +68,7 @@ app.get('/profile/:username/movies', (req, res) => {
 
 // SignUp ////////////////////////////////////////////////////////////////
 app.post('/signup', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   db.userServiceHelperFunc(req, (result) => {
     if (result === 'success') {
       res.status(201).send(`${req.body.username} succesfully registered!`);
@@ -83,7 +85,7 @@ app.post('/signup', (req, res) => {
 app.patch('/profile', (req, res) => {
   // should perform an update query to database
   // should be able to add or remove services
-  console.log(req.body, 'server.js');
+  // console.log(req.body, 'server.js');
   db.funcToToggleServices(req, (result) => {
     console.log(result);
   });

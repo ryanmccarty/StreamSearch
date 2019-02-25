@@ -73,7 +73,7 @@
   position: absolute;
   top: 35.5%;
   left: 35%;
-  /* transform: translate(-50%, -50%); */
+  
 }
 
 .centered-text-password {
@@ -211,6 +211,17 @@ h1.title.ng-binding {
   width: 300px;
     position: relative;
     color: ivory;
+}
+
+.material-icons {
+  /* position: absolute;
+  top: 10%;
+  left: 30%; */
+}
+
+.sidenav-overlay {
+    position: fixed;
+    display: none;
 }
 
 .movie {
